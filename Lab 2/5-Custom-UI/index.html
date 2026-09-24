@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nebula · Smart Home</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Theme switch: a checkbox read by body:has(#theme:checked). Pure CSS, no JS. -->
+  <input type="checkbox" id="theme" class="sr-only">
+
+  <div class="bg" aria-hidden="true">
+    <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+  </div>
+
+  <div class="app">
+    <!-- ---------- sidebar ---------- -->
+    <aside class="sidebar glass">
+      <div class="logo"><span class="logo-mark"></span>Nebula</div>
+      <nav>
+        <a href="#" class="active"><span>⌂</span>Dashboard</a>
+        <a href="#"><span>◷</span>Schedules</a>
+        <a href="#"><span>⚡</span>Energy</a>
+        <a href="#"><span>⛨</span>Security</a>
+        <a href="#"><span>⚙</span>Settings</a>
+      </nav>
+      <label for="theme" class="theme-toggle">
+        <span class="sun">☀</span><span class="moon">☾</span>
+        <i></i>
+      </label>
+    </aside>
+
+    <!-- ---------- main ---------- -->
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <p class="muted">Thursday, 24 September</p>
+          <h1>Good evening, <span class="grad">Farukh</span> 👋</h1>
+        </div>
+        <div class="user glass">
+          <span class="dot-live"></span> All systems normal
+          <div class="avatar">FK</div>
+        </div>
+      </header>
+
+      <!-- Room tabs (radio buttons + :checked ~ selectors) -->
+      <section class="rooms">
+        <input type="radio" name="room" id="r-living" checked>
+        <input type="radio" name="room" id="r-bed">
+        <input type="radio" name="room" id="r-kitchen">
+        <div class="tabs glass">
+          <label for="r-living">Living Room</label>
+          <label for="r-bed">Bedroom</label>
+          <label for="r-kitchen">Kitchen</label>
+          <span class="tab-pill"></span>
+        </div>
+
+        <div class="grid">
+          <!-- Thermostat -->
+          <article class="card glass thermo">
+            <h2>Climate</h2>
+            <div class="dial">
+              <div class="dial-inner">
+                <strong class="temp"></strong>
+                <span class="muted">Cooling</span>
+              </div>
+            </div>
+            <div class="thermo-stats">
+              <div><span class="muted">Humidity</span><b>48%</b></div>
+              <div><span class="muted">Outside</span><b>29°</b></div>
+              <div><span class="muted">Air</span><b class="good">Good</b></div>
+            </div>
+          </article>
+
+          <!-- Device toggles -->
+          <article class="card glass devices">
+            <h2>Devices</h2>
+            <div class="device-grid">
+              <label class="device d-light">
+                <input type="checkbox" checked>
+                <span class="d-icon">💡</span>
+                <span class="d-name">Ceiling Light</span>
+                <span class="d-state"></span>
+                <span class="switch"></span>
+              </label>
+              <label class="device d-ac">
+                <input type="checkbox" checked>
+                <span class="d-icon">❄</span>
+                <span class="d-name">Air Conditioner</span>
+                <span class="d-state"></span>
+                <span class="switch"></span>
+              </label>
+              <label class="device d-tv">
+                <input type="checkbox">
+                <span class="d-icon">📺</span>
+                <span class="d-name">Smart TV</span>
+                <span class="d-state"></span>
+                <span class="switch"></span>
+              </label>
+              <label class="device d-fan">
+                <input type="checkbox">
+                <span class="d-icon fan">✣</span>
+                <span class="d-name">Ceiling Fan</span>
+                <span class="d-state"></span>
+                <span class="switch"></span>
+              </label>
+            </div>
+          </article>
+
+          <!-- Music player -->
+          <article class="card glass music">
+            <input type="checkbox" id="play" class="sr-only" checked>
+            <h2>Now Playing</h2>
+            <div class="album">
+              <div class="vinyl"><span></span></div>
+            </div>
+            <div class="track">
+              <strong>Midnight City</strong>
+              <span class="muted">M83 · Hurry Up, We're Dreaming</span>
+            </div>
+            <div class="eq" aria-hidden="true">
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            </div>
+            <div class="progress"><span></span></div>
+            <div class="controls">
+              <button type="button" aria-label="Previous">⏮</button>
+              <label for="play" class="play-btn" aria-label="Play or pause"><span class="i-play">▶</span><span class="i-pause">❚❚</span></label>
+              <button type="button" aria-label="Next">⏭</button>
+            </div>
+          </article>
+
+          <!-- Energy chart -->
+          <article class="card glass energy">
+            <div class="card-head">
+              <h2>Energy Usage</h2>
+              <span class="chip">This week</span>
+            </div>
+            <p class="big">142.6 <small>kWh</small> <span class="down">▼ 12%</span></p>
+            <div class="bars">
+              <div style="--h: 55%"><span>Mon</span></div>
+              <div style="--h: 70%"><span>Tue</span></div>
+              <div style="--h: 45%"><span>Wed</span></div>
+              <div style="--h: 85%" class="peak"><span>Thu</span></div>
+              <div style="--h: 60%"><span>Fri</span></div>
+              <div style="--h: 35%"><span>Sat</span></div>
+              <div style="--h: 50%"><span>Sun</span></div>
+            </div>
+          </article>
+
+          <!-- Flip card: security camera -->
+          <article class="card flip">
+            <div class="flip-inner">
+              <div class="flip-front glass">
+                <h2>Front Door</h2>
+                <div class="cam">
+                  <span class="rec">● REC</span>
+                  <div class="scan"></div>
+                  <span class="cam-label">CAM 01 · 21:42</span>
+                </div>
+                <p class="muted hint">Hover to see activity ↻</p>
+              </div>
+              <div class="flip-back glass">
+                <h2>Recent Activity</h2>
+                <ul class="activity">
+                  <li><span class="tag ok">Unlocked</span> Farukh arrived <time>21:10</time></li>
+                  <li><span class="tag info">Motion</span> Package delivered <time>17:32</time></li>
+                  <li><span class="tag ok">Locked</span> Auto-lock engaged <time>09:05</time></li>
+                  <li><span class="tag warn">Alert</span> Window left open <time>08:40</time></li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <!-- Scenes -->
+          <article class="card glass scenes">
+            <h2>Scenes</h2>
+            <div class="scene-list">
+              <input type="radio" name="scene" id="s1" checked><label for="s1"><span>🌅</span>Morning</label>
+              <input type="radio" name="scene" id="s2"><label for="s2"><span>🎬</span>Movie</label>
+              <input type="radio" name="scene" id="s3"><label for="s3"><span>🌙</span>Sleep</label>
+              <input type="radio" name="scene" id="s4"><label for="s4"><span>🎉</span>Party</label>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

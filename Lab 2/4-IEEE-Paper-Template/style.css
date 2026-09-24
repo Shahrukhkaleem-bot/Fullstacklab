@@ -1,0 +1,157 @@
+/* IEEE conference format: US Letter, 0.75in top, 0.625in sides,
+   two 3.5in columns with a 0.25in gutter, Times 10pt body. */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #8a8f98;
+  padding: 30px 12px;
+  font-family: "Times New Roman", Times, serif;
+  color: #000;
+}
+
+.paper {
+  width: 8.5in;
+  max-width: 100%;
+  min-height: 11in;
+  margin: 0 auto;
+  background: #fff;
+  padding: 0.75in 0.625in 1in;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
+  font-size: 10pt;
+  line-height: 1.15;
+  counter-reset: section;
+}
+
+/* ---------- title block ---------- */
+.paper-head { text-align: center; margin-bottom: 18pt; }
+.paper-head h1 { font-size: 24pt; font-weight: normal; line-height: 1.1; }
+.subtitle { font-size: 9pt; color: #c00; margin: 6pt 0 14pt; }
+
+.authors {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10pt;
+}
+.authors address {
+  font-style: normal;
+  font-size: 10pt;
+  line-height: 1.2;
+}
+.authors span { display: block; font-size: 11pt; }
+.authors em { display: block; }
+
+/* ---------- two-column body ---------- */
+.columns {
+  column-count: 2;
+  column-gap: 0.25in;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.columns p { text-indent: 1em; margin-bottom: 2pt; }
+
+.abstract, .keywords {
+  font-size: 9pt;
+  text-indent: 1em;
+  margin-bottom: 8pt !important;
+}
+
+/* Section heads: small caps, centred, Roman numerals */
+.columns h2 {
+  font-size: 10pt;
+  font-weight: normal;
+  font-variant: small-caps;
+  text-align: center;
+  margin: 12pt 0 6pt;
+  break-after: avoid;
+  counter-increment: section;
+  counter-reset: subsection;
+}
+.columns h2::before { content: counter(section, upper-roman) ". "; }
+.columns h2.unnumbered { counter-increment: none; }
+.columns h2.unnumbered::before { content: none; }
+
+/* Subsection heads: italic, lettered A., B., ... */
+.columns h3 {
+  font-size: 10pt;
+  font-weight: normal;
+  font-style: italic;
+  margin: 8pt 0 4pt;
+  break-after: avoid;
+  counter-increment: subsection;
+}
+.columns h3::before { content: counter(subsection, upper-alpha) ". "; }
+
+.columns a { color: inherit; text-decoration: none; }
+
+.columns ul { margin: 2pt 0 4pt 1.4em; }
+.columns ul li { margin-bottom: 2pt; }
+
+.equation {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin: 6pt 0;
+  break-inside: avoid;
+}
+.eq-no { position: absolute; right: 0; }
+
+/* ---------- tables and figures ---------- */
+figure { margin: 10pt 0; break-inside: avoid; text-align: center; }
+
+.table-fig figcaption {
+  font-size: 8pt;
+  font-variant: small-caps;
+  margin-bottom: 4pt;
+}
+.table-fig table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 8pt;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+.table-fig th, .table-fig td { border: 1px solid #000; padding: 2pt 4pt; }
+.table-fig th { font-weight: bold; }
+.table-note { font-size: 8pt; text-align: left; text-indent: 0 !important; margin-top: 2pt; }
+
+.placeholder {
+  border: 1px solid #000;
+  padding: 6pt;
+}
+.placeholder svg { width: 100%; height: auto; display: block; }
+.img-fig figcaption { font-size: 8pt; text-align: left; margin-top: 4pt; }
+
+.refs {
+  font-size: 8pt;
+  list-style: none;
+  counter-reset: ref;
+  text-align: left;
+}
+.refs li {
+  counter-increment: ref;
+  position: relative;
+  padding-left: 2.2em;
+  margin-bottom: 3pt;
+}
+.refs li::before {
+  content: "[" counter(ref) "]";
+  position: absolute;
+  left: 0;
+}
+
+.warning { color: #c00; font-size: 9pt; margin-top: 10pt; }
+
+/* ---------- print & small screens ---------- */
+@media print {
+  @page { size: letter; margin: 0; }
+  body { background: none; padding: 0; }
+  .paper { box-shadow: none; }
+}
+
+@media (max-width: 760px) {
+  .paper { padding: 32px 18px; }
+  .columns { column-count: 1; }
+  .authors { grid-template-columns: 1fr; }
+}

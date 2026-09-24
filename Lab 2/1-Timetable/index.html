@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class Timetable</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="page-header">
+    <h1>Weekly Class Timetable</h1>
+    <p>BS Computer Science &middot; Semester 5 &middot; Section A &middot; Fall 2026</p>
+  </header>
+
+  <main class="table-wrap">
+    <table>
+      <caption>Room numbers are shown under each course. Labs span two slots.</caption>
+      <thead>
+        <tr>
+          <th scope="col">Day / Time</th>
+          <th scope="col">08:30 – 09:50</th>
+          <th scope="col">10:00 – 11:20</th>
+          <th scope="col">11:30 – 12:50</th>
+          <th scope="col" class="break-col">12:50 – 01:30</th>
+          <th scope="col">01:30 – 02:50</th>
+          <th scope="col">03:00 – 04:20</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Monday</th>
+          <td class="c-fswd"><strong>Full Stack Web Dev</strong><span>CS-301 &middot; Room 12</span></td>
+          <td class="c-db"><strong>Database Systems</strong><span>CS-305 &middot; Room 8</span></td>
+          <td class="c-os"><strong>Operating Systems</strong><span>CS-310 &middot; Room 14</span></td>
+          <td rowspan="5" class="break"><span>L U N C H &nbsp; B R E A K</span></td>
+          <td class="c-math"><strong>Probability &amp; Stats</strong><span>MT-220 &middot; Room 3</span></td>
+          <td class="free">Free</td>
+        </tr>
+        <tr>
+          <th scope="row">Tuesday</th>
+          <td class="c-se"><strong>Software Engineering</strong><span>CS-320 &middot; Room 5</span></td>
+          <td colspan="2" class="c-fswd lab"><strong>Full Stack Web Dev Lab</strong><span>CS-301L &middot; Lab 2</span></td>
+          <td class="c-db"><strong>Database Systems</strong><span>CS-305 &middot; Room 8</span></td>
+          <td class="c-eng"><strong>Technical Writing</strong><span>HU-210 &middot; Room 1</span></td>
+        </tr>
+        <tr>
+          <th scope="row">Wednesday</th>
+          <td class="c-os"><strong>Operating Systems</strong><span>CS-310 &middot; Room 14</span></td>
+          <td class="c-math"><strong>Probability &amp; Stats</strong><span>MT-220 &middot; Room 3</span></td>
+          <td class="c-fswd"><strong>Full Stack Web Dev</strong><span>CS-301 &middot; Room 12</span></td>
+          <td colspan="2" class="c-db lab"><strong>Database Systems Lab</strong><span>CS-305L &middot; Lab 4</span></td>
+        </tr>
+        <tr>
+          <th scope="row">Thursday</th>
+          <td class="free">Free</td>
+          <td class="c-se"><strong>Software Engineering</strong><span>CS-320 &middot; Room 5</span></td>
+          <td class="c-eng"><strong>Technical Writing</strong><span>HU-210 &middot; Room 1</span></td>
+          <td colspan="2" class="c-os lab"><strong>Operating Systems Lab</strong><span>CS-310L &middot; Lab 1</span></td>
+        </tr>
+        <tr>
+          <th scope="row">Friday</th>
+          <td class="c-math"><strong>Probability &amp; Stats</strong><span>MT-220 &middot; Room 3</span></td>
+          <td class="c-se"><strong>Software Engineering</strong><span>CS-320 &middot; Room 5</span></td>
+          <td class="free">Jumu'ah</td>
+          <td class="free">Free</td>
+          <td class="free">Free</td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+
+  <section class="legend">
+    <h2>Courses</h2>
+    <ul>
+      <li><i class="c-fswd"></i> CS-301 Full Stack Web Development</li>
+      <li><i class="c-db"></i> CS-305 Database Systems</li>
+      <li><i class="c-os"></i> CS-310 Operating Systems</li>
+      <li><i class="c-se"></i> CS-320 Software Engineering</li>
+      <li><i class="c-math"></i> MT-220 Probability &amp; Statistics</li>
+      <li><i class="c-eng"></i> HU-210 Technical Writing</li>
+    </ul>
+  </section>
+</body>
+</html>

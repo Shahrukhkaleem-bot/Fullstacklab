@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farukh Kaleem | Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="nav">
+    <a href="#home" class="nav-logo">FK<span>.</span></a>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header id="home" class="hero">
+    <div class="hero-text">
+      <p class="eyebrow">Hello, I'm</p>
+      <h1>Farukh Kaleem</h1>
+      <h2>Full Stack Web Developer <span class="caret">_</span></h2>
+      <p class="lead">Computer Science student who enjoys turning ideas into clean, responsive and accessible web experiences.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">View My Work</a>
+        <a href="#contact" class="btn btn-ghost">Get In Touch</a>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="avatar">FK</div>
+      <div class="orbit"><span></span></div>
+    </div>
+  </header>
+
+  <main>
+    <section id="about" class="section">
+      <h3 class="section-title"><span>01.</span> About Me</h3>
+      <div class="about-grid">
+        <p>I'm a BS Computer Science student with a strong interest in full stack web development. I like building things from scratch: laying out a page with semantic HTML, styling it with modern CSS, and wiring it to a backend. Right now I'm working on responsive layouts, Flexbox and Grid, and JavaScript frameworks.</p>
+        <ul class="stats">
+          <li><strong>10+</strong><span>Projects</span></li>
+          <li><strong>3</strong><span>Years Coding</span></li>
+          <li><strong>5</strong><span>Languages</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <h3 class="section-title"><span>02.</span> Skills</h3>
+      <div class="skills">
+        <div class="skill"><span>HTML5</span><div class="bar"><i style="--w: 95%"></i></div></div>
+        <div class="skill"><span>CSS3 / Flexbox / Grid</span><div class="bar"><i style="--w: 90%"></i></div></div>
+        <div class="skill"><span>JavaScript</span><div class="bar"><i style="--w: 80%"></i></div></div>
+        <div class="skill"><span>React</span><div class="bar"><i style="--w: 70%"></i></div></div>
+        <div class="skill"><span>Node.js / Express</span><div class="bar"><i style="--w: 65%"></i></div></div>
+        <div class="skill"><span>SQL / MongoDB</span><div class="bar"><i style="--w: 75%"></i></div></div>
+      </div>
+      <ul class="tags">
+        <li>Git</li><li>GitHub</li><li>VS Code</li><li>Figma</li><li>C++</li><li>Python</li><li>Bootstrap</li><li>Tailwind</li>
+      </ul>
+    </section>
+
+    <section id="projects" class="section">
+      <h3 class="section-title"><span>03.</span> Projects</h3>
+      <div class="cards">
+        <article class="card">
+          <div class="card-top"><span class="folder">&#128193;</span><a href="#" aria-label="GitHub">&#8599;</a></div>
+          <h4>Class Timetable</h4>
+          <p>A weekly timetable built with semantic tables, rowspan and colspan, colour-coded courses and print styles.</p>
+          <ul><li>HTML</li><li>CSS</li></ul>
+        </article>
+        <article class="card">
+          <div class="card-top"><span class="folder">&#128193;</span><a href="#" aria-label="GitHub">&#8599;</a></div>
+          <h4>Facebook Homepage Clone</h4>
+          <p>A pixel-close recreation of the Facebook login page, with a pure-CSS sign-up modal and a responsive layout.</p>
+          <ul><li>HTML</li><li>CSS</li><li>Flexbox</li></ul>
+        </article>
+        <article class="card">
+          <div class="card-top"><span class="folder">&#128193;</span><a href="#" aria-label="GitHub">&#8599;</a></div>
+          <h4>IEEE Paper Template</h4>
+          <p>A two-column conference paper layout following IEEE formatting rules, rendered in the browser.</p>
+          <ul><li>HTML</li><li>CSS Columns</li></ul>
+        </article>
+        <article class="card">
+          <div class="card-top"><span class="folder">&#128193;</span><a href="#" aria-label="GitHub">&#8599;</a></div>
+          <h4>Student Management System</h4>
+          <p>CRUD application for managing student records, with search, filters and a REST API.</p>
+          <ul><li>Node.js</li><li>Express</li><li>MongoDB</li></ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="education" class="section">
+      <h3 class="section-title"><span>04.</span> Education</h3>
+      <ol class="timeline">
+        <li>
+          <time>2024 – Present</time>
+          <h4>BS Computer Science</h4>
+          <p>Relevant courses: Full Stack Web Development, Database Systems, Operating Systems, Software Engineering.</p>
+        </li>
+        <li>
+          <time>2022 – 2024</time>
+          <h4>Intermediate (Pre-Engineering / ICS)</h4>
+          <p>Mathematics, Physics and Computer Science.</p>
+        </li>
+        <li>
+          <time>2020 – 2022</time>
+          <h4>Matriculation (Science)</h4>
+          <p>Where I wrote my first lines of code.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section id="contact" class="section contact">
+      <h3 class="section-title center"><span>05.</span> Get In Touch</h3>
+      <p>My inbox is always open. Whether it's a project, an internship or just a hello, I'll get back to you.</p>
+      <a href="mailto:farukhkaleem1@gmail.com" class="btn btn-primary">Say Hello</a>
+      <ul class="socials">
+        <li><a href="#">GitHub</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="mailto:farukhkaleem1@gmail.com">Email</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">Designed &amp; built by Farukh Kaleem &middot; 2026</footer>
+</body>
+</html>

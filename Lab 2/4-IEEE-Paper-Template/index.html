@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IEEE Conference Paper Template</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <article class="paper">
+    <header class="paper-head">
+      <h1>Paper Title (use style: paper title)</h1>
+      <p class="subtitle">*Note: Sub-titles are not captured in Xplore and should not be used</p>
+
+      <div class="authors">
+        <address>
+          <span>1<sup>st</sup> Given Name Surname</span>
+          <em>dept. name of organization (of Aff.)</em>
+          <em>name of organization (of Aff.)</em>
+          City, Country<br>
+          email address or ORCID
+        </address>
+        <address>
+          <span>2<sup>nd</sup> Given Name Surname</span>
+          <em>dept. name of organization (of Aff.)</em>
+          <em>name of organization (of Aff.)</em>
+          City, Country<br>
+          email address or ORCID
+        </address>
+        <address>
+          <span>3<sup>rd</sup> Given Name Surname</span>
+          <em>dept. name of organization (of Aff.)</em>
+          <em>name of organization (of Aff.)</em>
+          City, Country<br>
+          email address or ORCID
+        </address>
+      </div>
+    </header>
+
+    <div class="columns">
+      <p class="abstract"><b><i>Abstract</i>—This document is a model and instructions for L<sub>A</sub>T<sub>E</sub>X-style papers built with HTML and CSS. This and the IEEEtran.cls file define the components of your paper [title, text, heads, etc.]. *CRITICAL: Do Not Use Symbols, Special Characters, Footnotes, or Math in Paper Title or Abstract.</b></p>
+
+      <p class="keywords"><b><i>Index Terms</i>—component, formatting, style, styling, insert</b></p>
+
+      <h2>Introduction</h2>
+      <p>This document is a model and instructions for building a conference paper layout. Please observe the conference page limits. The template uses a US-letter page, two columns of 3.5 in, a 0.25 in gutter, and Times New Roman at 10 pt for the body text.</p>
+
+      <h2>Ease of Use</h2>
+      <h3>Maintaining the Integrity of the Specifications</h3>
+      <p>The IEEEtran class file is used to format your paper and style the text. All margins, column widths, line spaces, and text fonts are prescribed; please do not alter them. You may note peculiarities. For example, the head margin measures proportionately more than is customary. This measurement and others are deliberate, using specifications that anticipate your paper as one part of the entire proceedings, and not as an independent document.</p>
+
+      <h2>Prepare Your Paper Before Styling</h2>
+      <p>Before you begin to format your paper, first write and save the content as a separate text file. Complete all content and organizational editing before formatting. Please note sections <a href="#sec-a">A</a>–<a href="#sec-e">E</a> below for more information on proofreading, spelling and grammar.</p>
+      <p>Keep your text and graphic files separate until after the text has been formatted and styled. Do not number text heads—the stylesheet will do that for you.</p>
+
+      <h3 id="sec-a">Abbreviations and Acronyms</h3>
+      <p>Define abbreviations and acronyms the first time they are used in the text, even after they have been defined in the abstract. Abbreviations such as IEEE, SI, MKS, CGS, ac, dc, and rms do not have to be defined. Do not use abbreviations in the title or heads unless they are unavoidable.</p>
+
+      <h3>Units</h3>
+      <ul>
+        <li>Use either SI (MKS) or CGS as primary units. (SI units are encouraged.) English units may be used as secondary units (in parentheses).</li>
+        <li>Avoid combining SI and CGS units, such as current in amperes and magnetic field in oersteds.</li>
+        <li>Do not mix complete spellings and abbreviations of units: “Wb/m<sup>2</sup>” or “webers per square meter”, not “webers/m<sup>2</sup>”.</li>
+      </ul>
+
+      <h3>Equations</h3>
+      <p>Number equations consecutively. To make your equations more compact, you may use the solidus ( / ), the exp function, or appropriate exponents. Italicize Roman symbols for quantities and variables, but not Greek symbols.</p>
+      <div class="equation">
+        <span><i>a</i> + <i>b</i> = <i>γ</i></span>
+        <span class="eq-no">(1)</span>
+      </div>
+      <p>Be sure that the symbols in your equation have been defined before or immediately following the equation. Use “(1)”, not “Eq. (1)” or “equation (1)”, except at the beginning of a sentence: “Equation (1) is . . .”</p>
+
+      <h3>Some Common Mistakes</h3>
+      <ul>
+        <li>The word “data” is plural, not singular.</li>
+        <li>The subscript for the permeability of vacuum <i>μ</i><sub>0</sub>, and other common scientific constants, is zero with subscript formatting, not a lowercase letter “o”.</li>
+        <li>Use a zero before decimal points: “0.25”, not “.25”.</li>
+        <li>Do not confuse “imply” and “infer”.</li>
+      </ul>
+
+      <h3 id="sec-e">Authors and Affiliations</h3>
+      <p><b>The class file is designed for, but not limited to, six authors.</b> A minimum of one author is required for all conference articles. Author names should be listed starting from left to right and then moving down to the next line.</p>
+
+      <h3>Figures and Tables</h3>
+      <p><i>a) Positioning Figures and Tables:</i> Place figures and tables at the top and bottom of columns. Avoid placing them in the middle of columns. Figure captions should be below the figures; table heads should appear above the tables.</p>
+
+      <figure class="table-fig">
+        <figcaption>TABLE I<br><span>Table Type Styles</span></figcaption>
+        <table>
+          <thead>
+            <tr>
+              <th rowspan="2">Table Head</th>
+              <th colspan="3">Table Column Head</th>
+            </tr>
+            <tr>
+              <th>Table column subhead</th>
+              <th>Subhead</th>
+              <th>Subhead</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>copy</td><td>More table copy<sup>a</sup></td><td></td><td></td></tr>
+          </tbody>
+        </table>
+        <p class="table-note"><sup>a</sup>Sample of a Table footnote.</p>
+      </figure>
+
+      <figure class="img-fig">
+        <div class="placeholder">
+          <svg viewBox="0 0 200 110" role="img" aria-label="Example chart">
+            <line x1="20" y1="95" x2="190" y2="95" stroke="#000" />
+            <line x1="20" y1="95" x2="20" y2="10" stroke="#000" />
+            <polyline points="20,90 50,70 80,75 110,45 140,50 170,20" fill="none" stroke="#000" stroke-width="1.5" />
+            <polyline points="20,92 50,85 80,80 110,72 140,60 170,55" fill="none" stroke="#000" stroke-dasharray="4 3" />
+          </svg>
+        </div>
+        <figcaption>Fig. 1. Example of a figure caption.</figcaption>
+      </figure>
+
+      <p>Figure labels: use 8 point Times New Roman for figure labels. Use words rather than symbols or abbreviations when writing figure axis labels to avoid confusing the reader.</p>
+
+      <h2 class="unnumbered">Acknowledgment</h2>
+      <p>The preferred spelling of the word “acknowledgment” in America is without an “e” after the “g”. Avoid the stilted expression “one of us (R. B. G.) thanks ...”. Instead, try “R. B. G. thanks...”. Put sponsor acknowledgments in the unnumbered footnote on the first page.</p>
+
+      <h2 class="unnumbered">References</h2>
+      <p>Please number citations consecutively within brackets [1]. The sentence punctuation follows the bracket [2]. Refer simply to the reference number, as in [3]—do not use “Ref. [3]” or “reference [3]” except at the beginning of a sentence.</p>
+      <ol class="refs">
+        <li>G. Eason, B. Noble, and I. N. Sneddon, “On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,” Phil. Trans. Roy. Soc. London, vol. A247, pp. 529–551, April 1955.</li>
+        <li>J. Clerk Maxwell, A Treatise on Electricity and Magnetism, 3rd ed., vol. 2. Oxford: Clarendon, 1892, pp. 68–73.</li>
+        <li>I. S. Jacobs and C. P. Bean, “Fine particles, thin films and exchange anisotropy,” in Magnetism, vol. III, G. T. Rado and H. Suhl, Eds. New York: Academic, 1963, pp. 271–350.</li>
+        <li>K. Elissa, “Title of paper if known,” unpublished.</li>
+        <li>R. Nicole, “Title of paper with only first word capitalized,” J. Name Stand. Abbrev., in press.</li>
+        <li>Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, “Electron spectroscopy studies on magneto-optical media and plastic substrate interface,” IEEE Transl. J. Magn. Japan, vol. 2, pp. 740–741, August 1987.</li>
+        <li>M. Young, The Technical Writer’s Handbook. Mill Valley, CA: University Science, 1989.</li>
+      </ol>
+
+      <p class="warning">IEEE conference templates contain guidance text for composing and formatting conference papers. Please ensure that all template text is removed from your conference paper prior to submission to the conference. Failure to remove template text from your paper may result in your paper not being published.</p>
+    </div>
+  </article>
+</body>
+</html>
