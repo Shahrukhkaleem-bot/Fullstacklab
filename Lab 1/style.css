@@ -1,0 +1,211 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0f1221;
+  --body: #1b1f36;
+  --key: #262b4a;
+  --key-hover: #30365c;
+  --text: #eef0ff;
+  --muted: #8a90b8;
+  --fn: #3a4070;
+  --op: #ff8a3d;
+  --op-2: #ff5e7e;
+  --eq: #7c5cff;
+  --eq-2: #22d3ee;
+  --shadow-dark: rgba(0, 0, 0, 0.45);
+  --shadow-light: rgba(255, 255, 255, 0.05);
+}
+
+/* Light theme via the hidden checkbox */
+body:has(#theme:checked) {
+  --bg: #e7ebf5;
+  --body: #eef1f8;
+  --key: #f6f8fc;
+  --key-hover: #ffffff;
+  --text: #1d2140;
+  --muted: #6d7394;
+  --fn: #d9deee;
+  --shadow-dark: rgba(163, 172, 200, 0.6);
+  --shadow-light: rgba(255, 255, 255, 0.95);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+body {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
+  font-family: "Segoe UI", system-ui, Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 20% 20%, rgba(124, 92, 255, 0.25), transparent 40%),
+    radial-gradient(circle at 80% 85%, rgba(255, 94, 126, 0.2), transparent 40%),
+    var(--bg);
+  transition: background 0.4s, color 0.4s;
+}
+
+/* ---------- calculator body ---------- */
+.calc {
+  width: 340px;
+  max-width: 100%;
+  padding: 22px;
+  border-radius: 34px;
+  background: var(--body);
+  box-shadow:
+    18px 18px 40px var(--shadow-dark),
+    -12px -12px 30px var(--shadow-light);
+  transition: background 0.4s;
+}
+
+.calc-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.brand { font-weight: 800; letter-spacing: 3px; font-size: 0.85rem; color: var(--muted); }
+.brand b { color: var(--op); }
+
+.theme-toggle {
+  position: relative;
+  width: 46px;
+  height: 24px;
+  border-radius: 99px;
+  background: var(--key);
+  box-shadow: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
+  cursor: pointer;
+}
+.theme-toggle i {
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--eq), var(--eq-2));
+  transition: transform 0.35s cubic-bezier(.6, -0.4, .3, 1.4);
+}
+body:has(#theme:checked) .theme-toggle i {
+  transform: translateX(22px);
+  background: linear-gradient(135deg, var(--op), var(--op-2));
+}
+
+/* ---------- display ---------- */
+.display {
+  text-align: right;
+  padding: 26px 18px 18px;
+  margin-bottom: 20px;
+  border-radius: 22px;
+  background: var(--bg);
+  box-shadow: inset 6px 6px 14px var(--shadow-dark), inset -6px -6px 14px var(--shadow-light);
+  overflow: hidden;
+  transition: background 0.4s;
+}
+.history {
+  font-size: 1rem;
+  color: var(--muted);
+  min-height: 1.4em;
+}
+.result {
+  font-size: 3rem;
+  font-weight: 300;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.result::after {
+  content: "";
+  display: inline-block;
+  width: 2px;
+  height: 0.9em;
+  margin-left: 4px;
+  vertical-align: -0.08em;
+  background: var(--op);
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ---------- keypad ---------- */
+.keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.k {
+  aspect-ratio: 1;
+  border: none;
+  border-radius: 20px;
+  font: inherit;
+  font-size: 1.45rem;
+  color: var(--text);
+  background: var(--key);
+  cursor: pointer;
+  box-shadow: 6px 6px 12px var(--shadow-dark), -4px -4px 10px var(--shadow-light);
+  transition: transform 0.08s, box-shadow 0.15s, background 0.2s;
+}
+.k:hover { background: var(--key-hover); }
+.k:active {
+  transform: scale(0.94);
+  box-shadow: inset 4px 4px 10px var(--shadow-dark), inset -3px -3px 8px var(--shadow-light);
+}
+.k:focus-visible { outline: 2px solid var(--eq-2); outline-offset: 3px; }
+
+.fn { background: var(--fn); font-size: 1.15rem; font-weight: 600; }
+
+.op {
+  color: #fff;
+  font-size: 1.7rem;
+  background: linear-gradient(145deg, var(--op), var(--op-2));
+}
+.op:hover { filter: brightness(1.1); background: linear-gradient(145deg, var(--op), var(--op-2)); }
+
+.eq {
+  color: #fff;
+  font-size: 1.8rem;
+  background: linear-gradient(145deg, var(--eq), var(--eq-2));
+}
+.eq:hover { filter: brightness(1.1); background: linear-gradient(145deg, var(--eq), var(--eq-2)); }
+
+.zero {
+  grid-column: span 2;
+  aspect-ratio: auto;
+  text-align: left;
+  padding-left: 30px;
+}
+
+/* ---------- CSS-only "live" display ----------
+   Clicking a key focuses it; :has() swaps the display text to that key. */
+.calc:has(.k:focus) .value { display: none; }
+.calc:has(.k:focus) .history { visibility: hidden; }
+.calc:has(.k:focus) .result::before { font-weight: 300; }
+
+.calc:has(.k0:focus)    .result::before { content: "0"; }
+.calc:has(.k1:focus)    .result::before { content: "1"; }
+.calc:has(.k2:focus)    .result::before { content: "2"; }
+.calc:has(.k3:focus)    .result::before { content: "3"; }
+.calc:has(.k4:focus)    .result::before { content: "4"; }
+.calc:has(.k5:focus)    .result::before { content: "5"; }
+.calc:has(.k6:focus)    .result::before { content: "6"; }
+.calc:has(.k7:focus)    .result::before { content: "7"; }
+.calc:has(.k8:focus)    .result::before { content: "8"; }
+.calc:has(.k9:focus)    .result::before { content: "9"; }
+.calc:has(.k-dot:focus) .result::before { content: "0."; }
+.calc:has(.k-add:focus) .result::before { content: "+"; color: var(--op); }
+.calc:has(.k-sub:focus) .result::before { content: "−"; color: var(--op); }
+.calc:has(.k-mul:focus) .result::before { content: "×"; color: var(--op); }
+.calc:has(.k-div:focus) .result::before { content: "÷"; color: var(--op); }
+.calc:has(.k-pct:focus) .result::before { content: "%"; color: var(--op); }
+.calc:has(.k-neg:focus) .result::before { content: "−15,000"; }
+.calc:has(.k-ac:focus)  .result::before { content: "0"; }
+.calc:has(.k-eq:focus)  .value { display: inline; }
+.calc:has(.k-eq:focus)  .history { visibility: visible; }
+
+@media (max-width: 380px) {
+  .calc { padding: 16px; border-radius: 26px; }
+  .keys { gap: 10px; }
+  .result { font-size: 2.4rem; }
+}

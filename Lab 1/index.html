@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator UI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Theme switch: checkbox read with body:has(#theme:checked). No JavaScript. -->
+  <input type="checkbox" id="theme" class="sr-only">
+
+  <main class="calc">
+    <div class="calc-top">
+      <span class="brand">CALC<b>.</b></span>
+      <label for="theme" class="theme-toggle" aria-label="Toggle light/dark theme"><i></i></label>
+    </div>
+
+    <!-- Display: the last key clicked is shown via :has(button:focus) -->
+    <section class="display">
+      <p class="history">1,250 × 12 =</p>
+      <p class="result"><span class="value">15,000</span></p>
+    </section>
+
+    <section class="keys">
+      <button class="k fn k-ac">AC</button>
+      <button class="k fn k-neg">±</button>
+      <button class="k fn k-pct">%</button>
+      <button class="k op k-div">÷</button>
+
+      <button class="k k7">7</button>
+      <button class="k k8">8</button>
+      <button class="k k9">9</button>
+      <button class="k op k-mul">×</button>
+
+      <button class="k k4">4</button>
+      <button class="k k5">5</button>
+      <button class="k k6">6</button>
+      <button class="k op k-sub">−</button>
+
+      <button class="k k1">1</button>
+      <button class="k k2">2</button>
+      <button class="k k3">3</button>
+      <button class="k op k-add">+</button>
+
+      <button class="k k0 zero">0</button>
+      <button class="k k-dot">.</button>
+      <button class="k eq k-eq">=</button>
+    </section>
+  </main>
+</body>
+</html>
