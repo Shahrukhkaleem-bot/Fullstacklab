@@ -4,7 +4,7 @@ Every task is built with HTML and CSS only. None of them use JavaScript.
 
 | # | Task | Folder | CSS concepts |
 |---|------|--------|--------------|
-| 1 | Class timetable | [1-Timetable](1-Timetable/) | Tables, `rowspan`/`colspan`, custom properties, `color-mix()`, print styles |
+| 1 | Class timetable | [1-Timetable](1-Timetable/) | Tables, `colspan` for 3-hour labs, fixed table layout, landscape print styles |
 | 2 | Facebook homepage | [2-Facebook-Homepage](2-Facebook-Homepage/) | Flexbox, form styling, sign-up modal with `:target`, responsive layout |
 | 3 | Portfolio | [3-Portfolio](3-Portfolio/) | Grid, sticky nav, gradients, keyframe animations, timeline with pseudo-elements |
 | 4 | IEEE paper template | [4-IEEE-Paper-Template](4-IEEE-Paper-Template/) | Multi-column layout, CSS counters (Roman numeral headings, references), `@page` print |
