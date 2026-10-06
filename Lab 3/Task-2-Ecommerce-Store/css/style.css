@@ -1,0 +1,39 @@
+/* Small additions on top of Bootstrap 5.3 */
+
+body { background: #f6f7fb; }
+
+/* hero carousel slides */
+.hero-slide {
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+}
+.hero-1 { background: linear-gradient(120deg, #141e30, #243b55 55%, #3a6073); }
+.hero-2 { background: linear-gradient(120deg, #42275a, #734b6d); }
+.hero-3 { background: linear-gradient(120deg, #0f2027, #2c5364); }
+.hero-icon { font-size: 11rem; line-height: 1; filter: drop-shadow(0 20px 30px rgba(0, 0, 0, .35)); }
+
+/* product image tiles */
+.product-img { aspect-ratio: 4 / 3; }
+.product-card { transition: transform .2s, box-shadow .2s; }
+.product-card:hover { transform: translateY(-4px); box-shadow: 0 1rem 2rem rgba(0, 0, 0, .12) !important; }
+.product-card .product-img i { transition: transform .3s; }
+.product-card:hover .product-img i { transform: scale(1.12) rotate(-6deg); }
+
+/* cart thumbnails */
+.thumb { width: 72px; flex-shrink: 0; border-radius: .5rem; overflow: hidden; }
+.thumb .product-img { aspect-ratio: 1; }
+
+/* star rating input */
+.rating-input { display: inline-flex; flex-direction: row-reverse; gap: .15rem; }
+.rating-input input { display: none; }
+.rating-input label { font-size: 1.5rem; color: #ced4da; cursor: pointer; }
+.rating-input label:hover,
+.rating-input label:hover ~ label,
+.rating-input input:checked ~ label { color: var(--bs-warning); }
+
+.qty-group { width: 130px; }
+.qty-group input { text-align: center; }
+
+/* auth pages */
+.auth-bg { background: linear-gradient(135deg, #141e30, #243b55); min-height: 100vh; }

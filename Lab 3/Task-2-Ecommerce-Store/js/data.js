@@ -1,0 +1,46 @@
+// Product catalogue for the TechNest demo store.
+// Each product uses a Bootstrap Icon and a gradient instead of a photo, so the store works offline.
+const PRODUCTS = [
+  { id: 1, name: 'Wireless Earbuds Pro', category: 'Audio', price: 7999, oldPrice: 9999, stock: 25, icon: 'bi-earbuds', colors: ['#667eea', '#764ba2'], badge: 'Sale',
+    desc: 'Active noise cancellation, 30-hour battery with the case and IPX5 sweat resistance.',
+    reviews: [
+      { name: 'Hamza A.', rating: 5, text: 'Bass is amazing for the price and the case is tiny.', date: '2026-09-12' },
+      { name: 'Zainab F.', rating: 4, text: 'Great sound, ANC is decent on the metro bus.', date: '2026-09-20' } ] },
+  { id: 2, name: 'Smart Watch X2', category: 'Wearables', price: 14999, stock: 12, icon: 'bi-smartwatch', colors: ['#11998e', '#38ef7d'], badge: 'New',
+    desc: 'AMOLED display, heart-rate and SpO2 tracking, GPS and 10-day battery life.',
+    reviews: [ { name: 'Usman R.', rating: 5, text: 'Battery really lasts more than a week.', date: '2026-08-30' } ] },
+  { id: 3, name: 'Mechanical Keyboard', category: 'Accessories', price: 11499, stock: 18, icon: 'bi-keyboard', colors: ['#232526', '#414345'],
+    desc: 'Hot-swappable red switches, RGB backlight and a compact 75% layout.',
+    reviews: [
+      { name: 'Bilal N.', rating: 5, text: 'Typing on this feels so good. Perfect for coding labs.', date: '2026-09-02' },
+      { name: 'Ayesha S.', rating: 4, text: 'A bit loud but the build quality is excellent.', date: '2026-09-18' } ] },
+  { id: 4, name: 'Gaming Mouse', category: 'Accessories', price: 4499, stock: 40, icon: 'bi-mouse', colors: ['#f12711', '#f5af19'],
+    desc: '26,000 DPI sensor, 6 programmable buttons and an ultra-light 59 g shell.',
+    reviews: [ { name: 'Talha K.', rating: 4, text: 'Light and accurate, the software is simple.', date: '2026-09-05' } ] },
+  { id: 5, name: 'Bluetooth Speaker', category: 'Audio', price: 6499, stock: 20, icon: 'bi-speaker', colors: ['#00c6ff', '#0072ff'],
+    desc: '360° sound, waterproof IP67 body and 20 hours of playtime.',
+    reviews: [ { name: 'Maryam F.', rating: 5, text: 'Took it to Murree, survived the rain!', date: '2026-08-21' } ] },
+  { id: 6, name: 'Laptop Backpack', category: 'Bags', price: 3999, oldPrice: 4999, stock: 30, icon: 'bi-backpack', colors: ['#373b44', '#4286f4'], badge: 'Sale',
+    desc: 'Fits 15.6" laptops, USB charging port, anti-theft pocket and water-resistant fabric.',
+    reviews: [ { name: 'Noor R.', rating: 4, text: 'Lots of space for university books and my laptop.', date: '2026-09-10' } ] },
+  { id: 7, name: 'Power Bank 20000mAh', category: 'Accessories', price: 5499, stock: 35, icon: 'bi-battery-charging', colors: ['#56ab2f', '#a8e063'],
+    desc: '22.5 W fast charging, USB-C in/out and enough power for four phone charges.',
+    reviews: [ { name: 'Hassan A.', rating: 5, text: 'A life saver during load-shedding.', date: '2026-09-15' } ] },
+  { id: 8, name: 'Noise-Cancelling Headphones', category: 'Audio', price: 18999, stock: 8, icon: 'bi-headphones', colors: ['#141e30', '#243b55'], badge: 'Best seller',
+    desc: 'Over-ear headphones with adaptive ANC, 40 mm drivers and 35-hour battery.',
+    reviews: [
+      { name: 'Sana A.', rating: 5, text: 'Blocks out everything in the library. Very comfortable.', date: '2026-09-08' },
+      { name: 'Umar B.', rating: 5, text: 'Worth every rupee.', date: '2026-09-22' } ] },
+  { id: 9, name: 'Action Camera 4K', category: 'Cameras', price: 22999, stock: 6, icon: 'bi-camera-video', colors: ['#cc2b5e', '#753a88'],
+    desc: '4K 60 fps video, image stabilisation and a waterproof case up to 30 m.',
+    reviews: [ { name: 'Fahad J.', rating: 4, text: 'Stabilisation is great for bike rides.', date: '2026-08-28' } ] },
+  { id: 10, name: 'Fitness Band', category: 'Wearables', price: 5999, stock: 22, icon: 'bi-heart-pulse', colors: ['#ee0979', '#ff6a00'],
+    desc: 'Step, sleep and heart-rate tracking with a 14-day battery.',
+    reviews: [ { name: 'Hira N.', rating: 4, text: 'Simple and accurate. Sleep tracking is useful.', date: '2026-09-01' } ] },
+  { id: 11, name: 'USB-C Hub 7-in-1', category: 'Accessories', price: 3499, stock: 50, icon: 'bi-usb-c', colors: ['#8e9eab', '#5b6b7a'],
+    desc: 'HDMI 4K, 3 × USB-A, SD and microSD readers and 100 W pass-through charging.',
+    reviews: [ { name: 'Moiz B.', rating: 5, text: 'Turned my laptop into a full desk setup.', date: '2026-09-14' } ] },
+  { id: 12, name: 'Tablet Stand', category: 'Accessories', price: 1999, stock: 45, icon: 'bi-tablet', colors: ['#f7971e', '#ffd200'],
+    desc: 'Adjustable aluminium stand for tablets and phones from 4" to 13".',
+    reviews: [ { name: 'Ali R.', rating: 3, text: 'Does the job, a little wobbly at full height.', date: '2026-09-03' } ] }
+];

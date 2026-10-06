@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nebula · Smart Home (Bootstrap)</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <style>
+    :root { --a1: #7c5cff; --a2: #ff5ca8; --a3: #22d3ee; }
+    body { min-height: 100vh; background: radial-gradient(circle at 10% 10%, rgba(124,92,255,.25), transparent 40%), radial-gradient(circle at 90% 90%, rgba(255,92,168,.18), transparent 40%), var(--bs-body-bg); background-attachment: fixed; }
+    .glass { background: rgba(var(--bs-body-bg-rgb), .55) !important; backdrop-filter: blur(16px); border: 1px solid var(--bs-border-color-translucent) !important; }
+    .grad-text { background: linear-gradient(90deg, var(--a1), var(--a2), var(--a3)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .btn-grad { background: linear-gradient(135deg, var(--a1), var(--a2)); color: #fff; border: 0; }
+    .btn-grad:hover { color: #fff; filter: brightness(1.1); }
+    .sidebar .nav-link { color: var(--bs-secondary-color); border-radius: .75rem; }
+    .sidebar .nav-link.active, .sidebar .nav-link:hover { color: #fff; background: linear-gradient(135deg, var(--a1), var(--a2)); }
+    .dial { width: 170px; height: 170px; background: conic-gradient(from 220deg, var(--a3), var(--a1) var(--p), rgba(128,128,160,.2) 0 78%, transparent 0); }
+    .dial-inner { width: 135px; height: 135px; background: var(--bs-body-bg); }
+    .device-tile:has(input:checked) { border-color: var(--a1) !important; box-shadow: 0 0 0 .2rem rgba(124,92,255,.25); }
+    .fan-on { display: inline-block; animation: spin .8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .eq span { width: 4px; background: linear-gradient(var(--a2), var(--a1)); border-radius: 2px; animation: eq .8s ease-in-out infinite alternate; }
+    .eq span:nth-child(2n) { animation-duration: .55s; } .eq span:nth-child(3n) { animation-duration: 1s; }
+    .eq.paused span { animation-play-state: paused; }
+    @keyframes eq { from { height: 15%; } to { height: 100%; } }
+    .bars .progress { height: 120px; width: 22px; flex-direction: column-reverse; }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- ===== Sidebar: offcanvas on mobile, fixed column on large screens ===== -->
+      <aside class="col-lg-2 p-0">
+        <div class="offcanvas-lg offcanvas-start glass sidebar vh-100 sticky-lg-top" tabindex="-1" id="sidebar">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title fw-bold"><i class="bi bi-stars grad-text"></i> Nebula</h5>
+            <button type="button" class="btn-close d-lg-none" data-bs-dismiss="offcanvas" data-bs-target="#sidebar"></button>
+          </div>
+          <div class="offcanvas-body d-flex flex-column p-3">
+            <nav class="nav nav-pills flex-column gap-1 mb-auto">
+              <a class="nav-link active" href="#"><i class="bi bi-house-door me-2"></i>Dashboard</a>
+              <a class="nav-link" href="#"><i class="bi bi-clock-history me-2"></i>Schedules</a>
+              <a class="nav-link" href="#"><i class="bi bi-lightning-charge me-2"></i>Energy</a>
+              <a class="nav-link" href="#"><i class="bi bi-shield-lock me-2"></i>Security</a>
+              <a class="nav-link" href="#"><i class="bi bi-gear me-2"></i>Settings</a>
+            </nav>
+            <div class="form-check form-switch mt-4">
+              <input class="form-check-input" type="checkbox" role="switch" id="themeSwitch">
+              <label class="form-check-label" for="themeSwitch"><i class="bi bi-sun"></i> Light mode</label>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- ===== Main ===== -->
+      <main class="col-lg-10 p-3 p-md-4">
+        <!-- top bar -->
+        <div class="d-flex align-items-center gap-3 mb-4 flex-wrap">
+          <button class="btn btn-outline-secondary d-lg-none" data-bs-toggle="offcanvas" data-bs-target="#sidebar"><i class="bi bi-list"></i></button>
+          <div class="me-auto">
+            <p class="text-body-secondary small mb-0">Tuesday, 6 October</p>
+            <h1 class="h3 mb-0">Good evening, <span class="grad-text fw-bold">Shahrukh</span> 👋</h1>
+          </div>
+          <span class="badge rounded-pill text-bg-success"><i class="bi bi-circle-fill small"></i> All systems normal</span>
+          <div class="dropdown">
+            <button class="btn btn-grad rounded-circle fw-bold" style="width:42px;height:42px" data-bs-toggle="dropdown">SK</button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
+              <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#addDevice"><i class="bi bi-plus-circle me-2"></i>Add device</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i>Sign out</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- room tabs (Bootstrap tab component) -->
+        <ul class="nav nav-pills glass rounded-pill p-1 d-inline-flex mb-4" role="tablist">
+          <li class="nav-item"><button class="nav-link rounded-pill active" data-bs-toggle="pill" data-room="Living Room" data-temp="22">Living Room</button></li>
+          <li class="nav-item"><button class="nav-link rounded-pill" data-bs-toggle="pill" data-room="Bedroom" data-temp="19">Bedroom</button></li>
+          <li class="nav-item"><button class="nav-link rounded-pill" data-bs-toggle="pill" data-room="Kitchen" data-temp="25">Kitchen</button></li>
+        </ul>
+
+        <div class="row g-4">
+          <!-- Climate -->
+          <div class="col-md-6 col-xl-4">
+            <div class="card glass h-100 rounded-4">
+              <div class="card-body text-center">
+                <h2 class="h6 text-start">Climate · <span id="roomName">Living Room</span></h2>
+                <div class="dial rounded-circle d-flex align-items-center justify-content-center mx-auto my-3" id="dial" style="--p: 34%">
+                  <div class="dial-inner rounded-circle d-flex flex-column align-items-center justify-content-center">
+                    <span class="display-5 fw-bold"><span id="tempVal">22</span>°</span>
+                    <small class="text-body-secondary">Cooling</small>
+                  </div>
+                </div>
+                <label for="tempRange" class="form-label small text-body-secondary">Target temperature</label>
+                <input type="range" class="form-range" min="16" max="30" value="22" id="tempRange">
+                <div class="row text-center small mt-2">
+                  <div class="col"><div class="text-body-secondary">Humidity</div><b>48%</b></div>
+                  <div class="col"><div class="text-body-secondary">Outside</div><b>27°</b></div>
+                  <div class="col"><div class="text-body-secondary">Air</div><b class="text-success">Good</b></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Devices -->
+          <div class="col-md-6 col-xl-4">
+            <div class="card glass h-100 rounded-4">
+              <div class="card-body">
+                <h2 class="h6 mb-3">Devices</h2>
+                <div class="row g-2">
+                  <div class="col-6"><label class="device-tile border rounded-4 p-3 d-block h-100" role="button">
+                    <div class="d-flex justify-content-between"><i class="bi bi-lightbulb fs-3 text-warning"></i><div class="form-check form-switch m-0"><input class="form-check-input device" type="checkbox" checked data-name="Ceiling Light"></div></div>
+                    <div class="fw-semibold small mt-2">Ceiling Light</div></label></div>
+                  <div class="col-6"><label class="device-tile border rounded-4 p-3 d-block h-100" role="button">
+                    <div class="d-flex justify-content-between"><i class="bi bi-snow fs-3 text-info"></i><div class="form-check form-switch m-0"><input class="form-check-input device" type="checkbox" checked data-name="Air Conditioner"></div></div>
+                    <div class="fw-semibold small mt-2">Air Conditioner</div></label></div>
+                  <div class="col-6"><label class="device-tile border rounded-4 p-3 d-block h-100" role="button">
+                    <div class="d-flex justify-content-between"><i class="bi bi-tv fs-3 text-primary"></i><div class="form-check form-switch m-0"><input class="form-check-input device" type="checkbox" data-name="Smart TV"></div></div>
+                    <div class="fw-semibold small mt-2">Smart TV</div></label></div>
+                  <div class="col-6"><label class="device-tile border rounded-4 p-3 d-block h-100" role="button">
+                    <div class="d-flex justify-content-between"><i class="bi bi-fan fs-3 text-success" id="fanIcon"></i><div class="form-check form-switch m-0"><input class="form-check-input device" type="checkbox" data-name="Ceiling Fan" id="fanSwitch"></div></div>
+                    <div class="fw-semibold small mt-2">Ceiling Fan</div></label></div>
+                </div>
+                <button class="btn btn-outline-secondary btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#addDevice"><i class="bi bi-plus-lg"></i> Add device</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Music -->
+          <div class="col-md-12 col-xl-4">
+            <div class="card glass h-100 rounded-4">
+              <div class="card-body text-center">
+                <h2 class="h6 text-start">Now Playing</h2>
+                <div class="rounded-4 mx-auto my-3 d-flex align-items-center justify-content-center" style="width:120px;height:120px;background:linear-gradient(135deg,var(--a1),var(--a2))"><i class="bi bi-music-note-beamed display-4 text-white"></i></div>
+                <div class="fw-bold">Midnight City</div>
+                <div class="small text-body-secondary mb-3">M83 · Hurry Up, We're Dreaming</div>
+                <div class="eq d-flex align-items-end justify-content-center gap-1 mb-3" id="eq" style="height:30px">
+                  <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                </div>
+                <div class="progress mb-3" style="height:5px"><div class="progress-bar" style="width:38%;background:linear-gradient(90deg,var(--a1),var(--a2))"></div></div>
+                <div class="btn-group">
+                  <button class="btn btn-outline-secondary"><i class="bi bi-skip-backward-fill"></i></button>
+                  <button class="btn btn-grad px-4" id="playBtn"><i class="bi bi-pause-fill"></i></button>
+                  <button class="btn btn-outline-secondary"><i class="bi bi-skip-forward-fill"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Energy -->
+          <div class="col-md-6 col-xl-6">
+            <div class="card glass h-100 rounded-4">
+              <div class="card-body">
+                <div class="d-flex justify-content-between"><h2 class="h6">Energy Usage</h2><span class="badge text-bg-primary">This week</span></div>
+                <p class="fs-3 fw-bold mb-3">142.6 <small class="fs-6 text-body-secondary">kWh</small> <span class="badge text-bg-success fs-6">▼ 12%</span></p>
+                <div class="bars d-flex justify-content-between align-items-end">
+                  <div class="text-center"><div class="progress"><div class="progress-bar bg-info" style="height:55%"></div></div><small>Mon</small></div>
+                  <div class="text-center"><div class="progress"><div class="progress-bar bg-info" style="height:70%"></div></div><small>Tue</small></div>
+                  <div class="text-center"><div class="progress"><div class="progress-bar bg-info" style="height:45%"></div></div><small>Wed</small></div>
+                  <div class="text-center"><div class="progress"><div class="progress-bar bg-danger" style="height:85%"></div></div><small>Thu</small></div>
+                  <div class="text-center"><div class="progress"><div class="progress-bar bg-info" style="height:60%"></div></div><small>Fri</small></div>
+                  <div class="text-center"><div class="progress"><div class="progress-bar bg-info" style="height:35%"></div></div><small>Sat</small></div>
+                  <div class="text-center"><div class="progress"><div class="progress-bar bg-info" style="height:50%"></div></div><small>Sun</small></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Security (accordion + list group) -->
+          <div class="col-md-6 col-xl-6">
+            <div class="card glass h-100 rounded-4">
+              <div class="card-body">
+                <h2 class="h6 mb-3">Security</h2>
+                <div class="accordion accordion-flush" id="secAcc">
+                  <div class="accordion-item bg-transparent">
+                    <h3 class="accordion-header"><button class="accordion-button bg-transparent" data-bs-toggle="collapse" data-bs-target="#cam"><i class="bi bi-camera-video me-2 text-danger"></i> Front Door Camera</button></h3>
+                    <div id="cam" class="accordion-collapse collapse show" data-bs-parent="#secAcc">
+                      <div class="accordion-body p-0 py-2">
+                        <div class="ratio ratio-21x9 rounded-3 overflow-hidden" style="background:linear-gradient(160deg,#2b3a55,#0f1726)"><div class="d-flex align-items-start justify-content-between p-2 small"><span class="text-danger fw-bold">● REC</span><span class="text-white-50">CAM 01 · 21:42</span></div></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item bg-transparent">
+                    <h3 class="accordion-header"><button class="accordion-button collapsed bg-transparent" data-bs-toggle="collapse" data-bs-target="#log"><i class="bi bi-list-check me-2 text-info"></i> Recent Activity</button></h3>
+                    <div id="log" class="accordion-collapse collapse" data-bs-parent="#secAcc">
+                      <ul class="list-group list-group-flush small">
+                        <li class="list-group-item bg-transparent d-flex justify-content-between"><span><span class="badge text-bg-success">Unlocked</span> Shahrukh arrived</span><span class="text-body-secondary">21:10</span></li>
+                        <li class="list-group-item bg-transparent d-flex justify-content-between"><span><span class="badge text-bg-info">Motion</span> Package delivered</span><span class="text-body-secondary">17:32</span></li>
+                        <li class="list-group-item bg-transparent d-flex justify-content-between"><span><span class="badge text-bg-warning">Alert</span> Window left open</span><span class="text-body-secondary">08:40</span></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Add device modal -->
+  <div class="modal fade" id="addDevice" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <form class="modal-content" id="addDeviceForm">
+        <div class="modal-header"><h5 class="modal-title">Add a device</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-body">
+          <div class="form-floating mb-3"><input class="form-control" id="devName" placeholder="Name" required><label for="devName">Device name</label></div>
+          <div class="form-floating"><select class="form-select" id="devRoom"><option>Living Room</option><option>Bedroom</option><option>Kitchen</option></select><label for="devRoom">Room</label></div>
+        </div>
+        <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button><button class="btn btn-grad">Add</button></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="toast" class="toast align-items-center border-0 text-bg-primary" role="status">
+      <div class="d-flex"><div class="toast-body" id="toastMsg">Done</div><button class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const toast = bootstrap.Toast.getOrCreateInstance(document.getElementById('toast'));
+    const notify = (msg) => { document.getElementById('toastMsg').textContent = msg; toast.show(); };
+
+    // light / dark colour mode (Bootstrap 5.3 data-bs-theme)
+    document.getElementById('themeSwitch').addEventListener('change', (e) => {
+      document.documentElement.setAttribute('data-bs-theme', e.target.checked ? 'light' : 'dark');
+    });
+
+    // thermostat dial follows the range slider
+    const range = document.getElementById('tempRange');
+    const setTemp = (t) => {
+      range.value = t;
+      document.getElementById('tempVal').textContent = t;
+      document.getElementById('dial').style.setProperty('--p', ((t - 16) / 14 * 78) + '%');
+    };
+    range.addEventListener('input', () => setTemp(range.value));
+    setTemp(22);
+
+    // room tabs change the room name and its saved temperature
+    document.querySelectorAll('[data-room]').forEach(btn => btn.addEventListener('shown.bs.tab', () => {
+      document.getElementById('roomName').textContent = btn.dataset.room;
+      setTemp(btn.dataset.temp);
+    }));
+
+    // device switches
+    document.querySelectorAll('.device').forEach(sw => sw.addEventListener('change', () => {
+      notify(`${sw.dataset.name} turned ${sw.checked ? 'on' : 'off'}`);
+      if (sw.id === 'fanSwitch') document.getElementById('fanIcon').classList.toggle('fan-on', sw.checked);
+    }));
+
+    // play / pause
+    document.getElementById('playBtn').addEventListener('click', (e) => {
+      const eq = document.getElementById('eq');
+      eq.classList.toggle('paused');
+      e.currentTarget.innerHTML = eq.classList.contains('paused') ? '<i class="bi bi-play-fill"></i>' : '<i class="bi bi-pause-fill"></i>';
+    });
+
+    // add device modal
+    document.getElementById('addDeviceForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('devName').value.trim();
+      bootstrap.Modal.getInstance(document.getElementById('addDevice')).hide();
+      notify(`${name} added to ${document.getElementById('devRoom').value}`);
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>

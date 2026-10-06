@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout · TechNest</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+  <div id="navbar"></div>
+
+  <main class="container py-5">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item"><a href="cart.html">Cart</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+      </ol>
+    </nav>
+
+    <!-- progress steps -->
+    <div class="d-flex justify-content-between text-center small mb-4 position-relative">
+      <div class="flex-fill"><span class="badge rounded-pill text-bg-success"><i class="bi bi-check"></i></span><div>Cart</div></div>
+      <div class="flex-fill"><span class="badge rounded-pill text-bg-primary">2</span><div class="fw-semibold">Details &amp; payment</div></div>
+      <div class="flex-fill"><span class="badge rounded-pill text-bg-secondary">3</span><div class="text-body-secondary">Confirmation</div></div>
+    </div>
+
+    <form id="checkoutForm" class="needs-validation" novalidate>
+      <div class="row g-4">
+        <div class="col-lg-7">
+          <!-- shipping details -->
+          <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body p-4">
+              <h2 class="h5 fw-bold mb-3"><i class="bi bi-geo-alt"></i> Delivery details</h2>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="fullName" class="form-label">Full name</label>
+                  <input type="text" class="form-control" id="fullName" required minlength="3" autocomplete="name">
+                  <div class="invalid-feedback">Please enter your full name.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email" required autocomplete="email">
+                  <div class="invalid-feedback">Please enter a valid email.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="phone" class="form-label">Phone</label>
+                  <div class="input-group has-validation">
+                    <span class="input-group-text">+92</span>
+                    <input type="tel" class="form-control" id="phone" placeholder="3XX XXXXXXX" required pattern="3[0-9]{2}\s?[0-9]{7}" autocomplete="tel-national">
+                    <div class="invalid-feedback">Enter a mobile number like 312 3456789.</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="city" class="form-label">City</label>
+                  <select class="form-select" id="city" required>
+                    <option value="">Choose…</option>
+                    <option>Islamabad</option><option>Rawalpindi</option><option>Lahore</option><option>Karachi</option>
+                    <option>Peshawar</option><option>Quetta</option><option>Multan</option><option>Faisalabad</option>
+                  </select>
+                  <div class="invalid-feedback">Please select a city.</div>
+                </div>
+                <div class="col-md-9">
+                  <label for="address" class="form-label">Street address</label>
+                  <input type="text" class="form-control" id="address" placeholder="House 12, Street 4, Sector …" required minlength="8" autocomplete="street-address">
+                  <div class="invalid-feedback">Please enter your delivery address.</div>
+                </div>
+                <div class="col-md-3">
+                  <label for="postal" class="form-label">Postal code</label>
+                  <input type="text" class="form-control" id="postal" required pattern="[0-9]{5}" inputmode="numeric" autocomplete="postal-code">
+                  <div class="invalid-feedback">5 digits.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- shipping method -->
+          <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body p-4">
+              <h2 class="h5 fw-bold mb-3"><i class="bi bi-truck"></i> Shipping method</h2>
+              <div class="list-group">
+                <label class="list-group-item d-flex gap-3 align-items-center">
+                  <input class="form-check-input flex-shrink-0" type="radio" name="shipping" value="standard" checked>
+                  <span class="flex-grow-1"><b>Standard</b><br><small class="text-body-secondary">3–5 working days · free over Rs 10,000</small></span>
+                  <span class="fw-semibold" id="stdPrice"></span>
+                </label>
+                <label class="list-group-item d-flex gap-3 align-items-center">
+                  <input class="form-check-input flex-shrink-0" type="radio" name="shipping" value="express">
+                  <span class="flex-grow-1"><b>Express</b><br><small class="text-body-secondary">Next working day in major cities</small></span>
+                  <span class="fw-semibold">Rs 500</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- payment -->
+          <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+              <h2 class="h5 fw-bold mb-3"><i class="bi bi-credit-card"></i> Payment</h2>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="radio" name="payment" id="payCod" value="Cash on delivery" checked>
+                <label class="form-check-label" for="payCod"><i class="bi bi-cash"></i> Cash on delivery</label>
+              </div>
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="radio" name="payment" id="payCard" value="Card (demo)">
+                <label class="form-check-label" for="payCard"><i class="bi bi-credit-card-2-front"></i> Debit / credit card <span class="badge text-bg-secondary">demo</span></label>
+              </div>
+
+              <div class="collapse" id="cardFields">
+                <div class="alert alert-warning small py-2"><i class="bi bi-exclamation-triangle"></i> This is a demo store. Don't enter real card details; use <b>4242 4242 4242 4242</b>. Card details are never saved.</div>
+                <div class="row g-3">
+                  <div class="col-12">
+                    <label for="ccName" class="form-label">Name on card</label>
+                    <input type="text" class="form-control card-field" id="ccName" autocomplete="off">
+                    <div class="invalid-feedback">Required.</div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="ccNumber" class="form-label">Card number</label>
+                    <input type="text" class="form-control card-field" id="ccNumber" inputmode="numeric" pattern="(\d{4}\s?){3}\d{4}" placeholder="4242 4242 4242 4242" autocomplete="off">
+                    <div class="invalid-feedback">16 digits.</div>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <label for="ccExp" class="form-label">Expiry</label>
+                    <input type="text" class="form-control card-field" id="ccExp" placeholder="MM/YY" pattern="(0[1-9]|1[0-2])\/\d{2}" autocomplete="off">
+                    <div class="invalid-feedback">MM/YY</div>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <label for="ccCvv" class="form-label">CVV</label>
+                    <input type="password" class="form-control card-field" id="ccCvv" pattern="\d{3}" inputmode="numeric" autocomplete="off">
+                    <div class="invalid-feedback">3 digits.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- order summary -->
+        <div class="col-lg-5">
+          <div class="card border-0 shadow-sm sticky-lg-top" style="top: 80px">
+            <div class="card-body p-4">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="h5 fw-bold mb-0">Your order</h2>
+                <a href="cart.html" class="small">Edit cart</a>
+              </div>
+              <ul class="list-group list-group-flush mb-3" id="summaryItems"></ul>
+              <ul class="list-group list-group-flush mb-3">
+                <li class="list-group-item d-flex justify-content-between px-0"><span>Subtotal</span><span id="sSubtotal"></span></li>
+                <li class="list-group-item d-flex justify-content-between px-0 text-success d-none" id="sDiscountRow"><span>Discount (<span id="sCode"></span>)</span><span id="sDiscount"></span></li>
+                <li class="list-group-item d-flex justify-content-between px-0"><span>Shipping</span><span id="sShipping"></span></li>
+                <li class="list-group-item d-flex justify-content-between px-0 fw-bold fs-5"><span>Total</span><span id="sTotal"></span></li>
+              </ul>
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="agree" required>
+                <label class="form-check-label small" for="agree">I confirm my order details are correct</label>
+                <div class="invalid-feedback">Please confirm before placing your order.</div>
+              </div>
+              <button type="submit" class="btn btn-success btn-lg w-100 fw-semibold" id="placeBtn"><i class="bi bi-bag-check"></i> Place order</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </main>
+
+  <!-- Order confirmation -->
+  <div class="modal fade" id="successModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-center">
+        <div class="modal-body p-5">
+          <i class="bi bi-check-circle-fill display-1 text-success"></i>
+          <h2 class="h3 fw-bold mt-3">Order placed!</h2>
+          <p class="mb-1">Thank you, <b id="oName"></b>.</p>
+          <p class="text-body-secondary">Order <b id="oId"></b> · <span id="oTotal"></span> · <span id="oPay"></span></p>
+          <p class="small text-body-secondary mb-4">Your order will be delivered to <span id="oAddr"></span>.</p>
+          <a href="index.html" class="btn btn-primary">Continue shopping</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    // checkout requires an account and a non-empty cart
+    if (TN.requireLogin()) {
+      if (TN.cart().length === 0) location.href = 'cart.html';
+    }
+
+    TN.renderNavbar('checkout');
+    TN.renderFooter();
+
+    const form = document.getElementById('checkoutForm');
+    const user = TN.currentUser();
+    if (user) {
+      document.getElementById('fullName').value = user.name;
+      document.getElementById('email').value = user.email;
+    }
+
+    const shippingMethod = () => form.querySelector('input[name="shipping"]:checked').value;
+
+    function renderSummary() {
+      const t = TN.totals(shippingMethod());
+      document.getElementById('summaryItems').innerHTML = t.lines.map(l => `
+        <li class="list-group-item d-flex align-items-center gap-3 px-0">
+          <div class="thumb position-relative" style="width:52px">${TN.productImage(l.product, 'fs-4')}
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark">${l.qty}</span></div>
+          <span class="flex-grow-1 small">${l.product.name}</span>
+          <span class="small fw-semibold text-nowrap">${TN.money(l.total)}</span>
+        </li>`).join('');
+      document.getElementById('sSubtotal').textContent = TN.money(t.subtotal);
+      document.getElementById('sDiscountRow').classList.toggle('d-none', !t.code);
+      document.getElementById('sCode').textContent = t.code || '';
+      document.getElementById('sDiscount').textContent = '− ' + TN.money(t.discount);
+      document.getElementById('sShipping').innerHTML = t.shipping === 0 ? '<span class="text-success fw-semibold">Free</span>' : TN.money(t.shipping);
+      document.getElementById('sTotal').textContent = TN.money(t.total);
+      document.getElementById('stdPrice').innerHTML = TN.totals('standard').shipping === 0 ? '<span class="text-success">Free</span>' : 'Rs 250';
+    }
+
+    form.querySelectorAll('input[name="shipping"]').forEach(r => r.addEventListener('change', renderSummary));
+
+    // card fields are only required when paying by card
+    const cardCollapse = new bootstrap.Collapse('#cardFields', { toggle: false });
+    form.querySelectorAll('input[name="payment"]').forEach(r => r.addEventListener('change', () => {
+      const byCard = document.getElementById('payCard').checked;
+      byCard ? cardCollapse.show() : cardCollapse.hide();
+      form.querySelectorAll('.card-field').forEach(f => f.required = byCard);
+    }));
+
+    // format the card number in groups of four
+    document.getElementById('ccNumber').addEventListener('input', e => {
+      e.target.value = e.target.value.replace(/\D/g, '').slice(0, 16).replace(/(\d{4})(?=\d)/g, '$1 ');
+    });
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      form.classList.add('was-validated');
+      if (!form.checkValidity()) {
+        form.querySelector(':invalid')?.focus();
+        return;
+      }
+      const btn = document.getElementById('placeBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Placing order…';
+
+      setTimeout(() => {
+        const order = TN.placeOrder({
+          name: document.getElementById('fullName').value.trim(),
+          phone: '+92 ' + document.getElementById('phone').value.trim(),
+          address: document.getElementById('address').value.trim(),
+          city: document.getElementById('city').value,
+          postal: document.getElementById('postal').value.trim(),
+          shippingMethod: shippingMethod(),
+          payment: form.querySelector('input[name="payment"]:checked').value
+        });
+        // never keep card data around
+        form.querySelectorAll('.card-field').forEach(f => f.value = '');
+        TN.updateCartBadge();
+        document.getElementById('oName').textContent = order.shipTo.name;
+        document.getElementById('oId').textContent = order.id;
+        document.getElementById('oTotal').textContent = TN.money(order.total);
+        document.getElementById('oPay').textContent = order.payment;
+        document.getElementById('oAddr').textContent = `${order.shipTo.address}, ${order.shipTo.city}`;
+        new bootstrap.Modal('#successModal').show();
+      }, 900);
+    });
+
+    renderSummary();
+  </script>
+</body>
+</html>

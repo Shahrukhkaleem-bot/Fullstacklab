@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign up · TechNest</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body class="auth-bg d-flex flex-column">
+  <div id="navbar"></div>
+
+  <main class="flex-grow-1 d-flex align-items-center py-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-5">
+          <div class="card border-0 shadow-lg rounded-4">
+            <div class="card-body p-4 p-md-5">
+              <div class="text-center mb-4">
+                <i class="bi bi-person-plus display-5 text-warning"></i>
+                <h1 class="h3 fw-bold mt-2">Create your account</h1>
+                <p class="text-body-secondary mb-0">Join TechNest to save your cart and check out faster.</p>
+              </div>
+
+              <div class="alert alert-danger d-none" id="signupError" role="alert"></div>
+
+              <form id="signupForm" class="needs-validation" novalidate>
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="name" placeholder="Full name" required minlength="3" maxlength="40" autocomplete="name">
+                  <label for="name">Full name</label>
+                  <div class="invalid-feedback">Please enter your name (at least 3 characters).</div>
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="email" class="form-control" id="email" placeholder="Email" required autocomplete="email">
+                  <label for="email">Email address</label>
+                  <div class="invalid-feedback">Please enter a valid email address.</div>
+                </div>
+                <div class="form-floating mb-1">
+                  <input type="password" class="form-control" id="password" placeholder="Password" required minlength="6" autocomplete="new-password">
+                  <label for="password">Password</label>
+                  <div class="invalid-feedback">Password must be at least 6 characters.</div>
+                </div>
+                <div class="progress mb-1" style="height: 5px"><div class="progress-bar" id="strengthBar" style="width: 0"></div></div>
+                <div class="form-text mb-3" id="strengthText">Use 6+ characters with a mix of letters and numbers.</div>
+                <div class="form-floating mb-3">
+                  <input type="password" class="form-control" id="confirm" placeholder="Confirm password" required autocomplete="new-password">
+                  <label for="confirm">Confirm password</label>
+                  <div class="invalid-feedback">Passwords do not match.</div>
+                </div>
+                <div class="form-check mb-4">
+                  <input class="form-check-input" type="checkbox" id="terms" required>
+                  <label class="form-check-label small" for="terms">I agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a></label>
+                  <div class="invalid-feedback">You must agree before signing up.</div>
+                </div>
+                <button class="btn btn-warning btn-lg w-100 fw-semibold" type="submit" id="signupBtn">Create account</button>
+              </form>
+
+              <p class="text-center small mt-4 mb-0">Already have an account? <a href="login.html" id="loginLink" class="fw-semibold">Log in</a></p>
+            </div>
+          </div>
+          <p class="text-center small text-white-50 mt-3"><i class="bi bi-info-circle"></i> Demo store: accounts are saved only in this browser.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    TN.renderNavbar('signup');
+    const next = TN.param('next') || 'index.html';
+    document.getElementById('loginLink').href = 'login.html?next=' + encodeURIComponent(next);
+
+    const form = document.getElementById('signupForm');
+    const pass = document.getElementById('password');
+    const confirm = document.getElementById('confirm');
+
+    // password strength meter
+    pass.addEventListener('input', () => {
+      const v = pass.value;
+      let score = 0;
+      if (v.length >= 6) score++;
+      if (v.length >= 10) score++;
+      if (/[A-Z]/.test(v) && /[a-z]/.test(v)) score++;
+      if (/\d/.test(v)) score++;
+      if (/[^A-Za-z0-9]/.test(v)) score++;
+      const levels = [['0%', 'bg-danger', 'Too short'], ['25%', 'bg-danger', 'Weak'], ['50%', 'bg-warning', 'Fair'], ['75%', 'bg-info', 'Good'], ['90%', 'bg-success', 'Strong'], ['100%', 'bg-success', 'Very strong']];
+      const [w, cls, label] = levels[score];
+      const bar = document.getElementById('strengthBar');
+      bar.style.width = w;
+      bar.className = 'progress-bar ' + cls;
+      document.getElementById('strengthText').textContent = v ? `Strength: ${label}` : 'Use 6+ characters with a mix of letters and numbers.';
+    });
+
+    const checkMatch = () => confirm.setCustomValidity(confirm.value && confirm.value !== pass.value ? 'mismatch' : '');
+    pass.addEventListener('input', checkMatch);
+    confirm.addEventListener('input', checkMatch);
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      checkMatch();
+      form.classList.add('was-validated');
+      if (!form.checkValidity()) return;
+      const err = document.getElementById('signupError');
+      try {
+        await TN.signup({ name: form.elements['name'].value, email: form.email.value, password: pass.value });
+        location.href = next;
+      } catch (ex) {
+        err.textContent = ex.message;
+        err.classList.remove('d-none');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechNest · Gadgets for Students</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+  <!-- ===== NAVBAR (rendered by app.js) ===== -->
+  <div id="navbar"></div>
+
+  <!-- ===== HERO SECTION (Bootstrap carousel) ===== -->
+  <header id="hero" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#hero" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#hero" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#hero" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="hero-slide hero-1 text-white">
+          <div class="container">
+            <div class="row align-items-center py-5">
+              <div class="col-md-7">
+                <span class="badge text-bg-warning mb-3">New semester sale</span>
+                <h1 class="display-4 fw-bold">Gear up for the<br>new semester</h1>
+                <p class="lead text-white-50">Keyboards, headphones and power banks at student prices. Free delivery on orders over Rs 10,000.</p>
+                <a href="#shop" class="btn btn-warning btn-lg fw-semibold me-2">Shop now</a>
+                <a href="#reviews" class="btn btn-outline-light btn-lg">Read reviews</a>
+              </div>
+              <div class="col-md-5 text-center d-none d-md-block"><i class="bi bi-headphones hero-icon text-warning"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="hero-slide hero-2 text-white">
+          <div class="container">
+            <div class="row align-items-center py-5">
+              <div class="col-md-7">
+                <span class="badge text-bg-light mb-3">Wearables</span>
+                <h2 class="display-4 fw-bold">Track every step</h2>
+                <p class="lead text-white-50">Smart watches and fitness bands with up to 14 days of battery.</p>
+                <button class="btn btn-light btn-lg fw-semibold" data-filter-link="Wearables">Shop wearables</button>
+              </div>
+              <div class="col-md-5 text-center d-none d-md-block"><i class="bi bi-smartwatch hero-icon"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="hero-slide hero-3 text-white">
+          <div class="container">
+            <div class="row align-items-center py-5">
+              <div class="col-md-7">
+                <span class="badge text-bg-info mb-3">Promo code</span>
+                <h2 class="display-4 fw-bold">10% off with <span class="text-info">FSWD10</span></h2>
+                <p class="lead text-white-50">Apply the code in your cart. Valid on all products.</p>
+                <a href="#shop" class="btn btn-info btn-lg fw-semibold">Start shopping</a>
+              </div>
+              <div class="col-md-5 text-center d-none d-md-block"><i class="bi bi-tag hero-icon text-info"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#hero" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span></button>
+    <button class="carousel-control-next" type="button" data-bs-target="#hero" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span></button>
+  </header>
+
+  <!-- ===== FEATURES STRIP ===== -->
+  <section class="bg-white border-bottom">
+    <div class="container py-4">
+      <div class="row row-cols-2 row-cols-md-4 g-3 text-center small">
+        <div class="col"><i class="bi bi-truck fs-3 text-primary"></i><div class="fw-semibold">Free delivery</div><div class="text-body-secondary">Over Rs 10,000</div></div>
+        <div class="col"><i class="bi bi-arrow-repeat fs-3 text-primary"></i><div class="fw-semibold">7-day returns</div><div class="text-body-secondary">No questions asked</div></div>
+        <div class="col"><i class="bi bi-cash-coin fs-3 text-primary"></i><div class="fw-semibold">Cash on delivery</div><div class="text-body-secondary">All over Pakistan</div></div>
+        <div class="col"><i class="bi bi-shield-check fs-3 text-primary"></i><div class="fw-semibold">1-year warranty</div><div class="text-body-secondary">On all electronics</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRODUCT LISTING ===== -->
+  <main id="shop" class="container py-5">
+    <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+      <div>
+        <h2 class="fw-bold mb-1">Shop products</h2>
+        <p class="text-body-secondary mb-0" id="resultInfo"></p>
+      </div>
+      <div class="d-flex flex-wrap gap-2">
+        <input type="search" class="form-control" id="searchInput" placeholder="Search…" style="width: 200px">
+        <select class="form-select" id="sortSelect" style="width: 190px">
+          <option value="featured">Sort: Featured</option>
+          <option value="price-asc">Price: low to high</option>
+          <option value="price-desc">Price: high to low</option>
+          <option value="rating">Top rated</option>
+          <option value="name">Name A–Z</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2 mb-4" id="categoryFilters" role="group" aria-label="Categories"></div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4" id="productGrid"></div>
+
+    <div class="text-center py-5 d-none" id="noResults">
+      <i class="bi bi-search display-4 text-body-secondary"></i>
+      <p class="mt-3 mb-2">No products match your search.</p>
+      <button class="btn btn-outline-primary" id="resetFilters">Reset filters</button>
+    </div>
+  </main>
+
+  <!-- ===== REVIEWS SECTION ===== -->
+  <section id="reviews" class="bg-white border-top border-bottom py-5">
+    <div class="container">
+      <div class="text-center mb-4">
+        <h2 class="fw-bold">What our customers say</h2>
+        <p class="text-body-secondary" id="reviewSummary"></p>
+      </div>
+      <div class="row row-cols-1 row-cols-md-3 g-4" id="latestReviews"></div>
+      <p class="text-center text-body-secondary small mt-4 mb-0">Open any product to read all of its reviews or write your own.</p>
+    </div>
+  </section>
+
+  <!-- ===== NEWSLETTER ===== -->
+  <section class="container py-5">
+    <div class="rounded-4 p-4 p-md-5 text-white" style="background: linear-gradient(120deg, #141e30, #3a6073)">
+      <div class="row align-items-center g-3">
+        <div class="col-md-6"><h3 class="fw-bold mb-1">Get deals in your inbox</h3><p class="mb-0 text-white-50">One email a week. No spam.</p></div>
+        <div class="col-md-6">
+          <form class="input-group" id="newsletter">
+            <input type="email" class="form-control" placeholder="you@example.com" required>
+            <button class="btn btn-warning fw-semibold">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+
+  <!-- ===== PRODUCT DETAIL MODAL (details + reviews + add review) ===== -->
+  <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold" id="pmTitle"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-4">
+            <div class="col-md-5"><div class="rounded-3 overflow-hidden" id="pmImage"></div></div>
+            <div class="col-md-7">
+              <div id="pmRating" class="mb-2"></div>
+              <p id="pmDesc"></p>
+              <div class="d-flex align-items-baseline gap-2 mb-2"><span class="fs-3 fw-bold" id="pmPrice"></span><del class="text-body-secondary" id="pmOld"></del></div>
+              <p class="small" id="pmStock"></p>
+              <div class="d-flex gap-2">
+                <div class="input-group qty-group">
+                  <button class="btn btn-outline-secondary" type="button" id="pmMinus">−</button>
+                  <input type="number" class="form-control" id="pmQty" value="1" min="1" aria-label="Quantity">
+                  <button class="btn btn-outline-secondary" type="button" id="pmPlus">+</button>
+                </div>
+                <button class="btn btn-primary flex-grow-1" id="pmAdd"><i class="bi bi-cart-plus"></i> Add to cart</button>
+              </div>
+            </div>
+          </div>
+
+          <hr class="my-4">
+
+          <h6 class="fw-bold">Customer reviews</h6>
+          <div id="pmReviews" class="mb-4"></div>
+
+          <div class="card bg-body-tertiary border-0">
+            <div class="card-body">
+              <h6 class="fw-bold">Write a review</h6>
+              <form id="reviewForm" class="needs-validation" novalidate>
+                <div class="mb-2">
+                  <div class="rating-input" id="ratingInput">
+                    <input type="radio" name="rating" id="r5" value="5" required><label for="r5" title="5 stars"><i class="bi bi-star-fill"></i></label>
+                    <input type="radio" name="rating" id="r4" value="4"><label for="r4" title="4 stars"><i class="bi bi-star-fill"></i></label>
+                    <input type="radio" name="rating" id="r3" value="3"><label for="r3" title="3 stars"><i class="bi bi-star-fill"></i></label>
+                    <input type="radio" name="rating" id="r2" value="2"><label for="r2" title="2 stars"><i class="bi bi-star-fill"></i></label>
+                    <input type="radio" name="rating" id="r1" value="1"><label for="r1" title="1 star"><i class="bi bi-star-fill"></i></label>
+                  </div>
+                  <div class="invalid-feedback d-block d-none" id="ratingError">Please choose a star rating.</div>
+                </div>
+                <div class="row g-2">
+                  <div class="col-sm-4"><input class="form-control" name="name" placeholder="Your name" required maxlength="40"><div class="invalid-feedback">Enter your name.</div></div>
+                  <div class="col-sm-8"><input class="form-control" name="text" placeholder="What did you think?" required minlength="5" maxlength="300"><div class="invalid-feedback">Write at least 5 characters.</div></div>
+                </div>
+                <button class="btn btn-dark btn-sm mt-2">Submit review</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    TN.renderNavbar('home');
+    TN.renderFooter();
+
+    // ---------- product listing ----------
+    const state = { category: 'All', q: TN.param('q') || '', sort: 'featured' };
+    const categories = ['All', ...new Set(PRODUCTS.map(p => p.category))];
+    const grid = document.getElementById('productGrid');
+    document.getElementById('searchInput').value = state.q;
+
+    function renderFilters() {
+      document.getElementById('categoryFilters').innerHTML = categories.map(c =>
+        `<button class="btn btn-sm rounded-pill ${c === state.category ? 'btn-dark' : 'btn-outline-dark'}" data-cat="${c}">${c}</button>`).join('');
+    }
+
+    function filtered() {
+      const q = state.q.toLowerCase();
+      let list = PRODUCTS.filter(p =>
+        (state.category === 'All' || p.category === state.category) &&
+        (!q || p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q)));
+      const sorters = {
+        'price-asc': (a, b) => a.price - b.price,
+        'price-desc': (a, b) => b.price - a.price,
+        rating: (a, b) => TN.avgRating(b.id) - TN.avgRating(a.id),
+        name: (a, b) => a.name.localeCompare(b.name)
+      };
+      if (sorters[state.sort]) list = [...list].sort(sorters[state.sort]);
+      return list;
+    }
+
+    function renderProducts() {
+      const list = filtered();
+      document.getElementById('resultInfo').textContent =
+        `${list.length} product${list.length === 1 ? '' : 's'}` + (state.q ? ` matching “${state.q}”` : '') + (state.category !== 'All' ? ` in ${state.category}` : '');
+      document.getElementById('noResults').classList.toggle('d-none', list.length > 0);
+      grid.innerHTML = list.map(p => {
+        const avg = TN.avgRating(p.id), count = TN.reviewsFor(p.id).length;
+        return `
+        <div class="col">
+          <div class="card product-card h-100 border-0 shadow-sm overflow-hidden">
+            <div class="position-relative" role="button" data-view="${p.id}">
+              ${TN.productImage(p)}
+              ${p.badge ? `<span class="badge ${p.badge === 'Sale' ? 'text-bg-danger' : 'text-bg-warning'} position-absolute top-0 start-0 m-2">${p.badge}</span>` : ''}
+            </div>
+            <div class="card-body d-flex flex-column">
+              <small class="text-body-secondary">${p.category}</small>
+              <h3 class="h6 fw-bold mb-1"><a href="#" class="link-dark text-decoration-none" data-view="${p.id}">${p.name}</a></h3>
+              <div class="small mb-2">${TN.stars(avg)} <span class="text-body-secondary">(${count})</span></div>
+              <div class="mt-auto d-flex align-items-baseline gap-2 mb-3">
+                <span class="fw-bold fs-5">${TN.money(p.price)}</span>
+                ${p.oldPrice ? `<del class="small text-body-secondary">${TN.money(p.oldPrice)}</del>` : ''}
+              </div>
+              <div class="d-flex gap-2">
+                <button class="btn btn-primary btn-sm flex-grow-1" data-add="${p.id}"><i class="bi bi-cart-plus"></i> Add to cart</button>
+                <button class="btn btn-outline-secondary btn-sm" data-view="${p.id}" title="Details &amp; reviews"><i class="bi bi-eye"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    document.getElementById('categoryFilters').addEventListener('click', e => {
+      const btn = e.target.closest('[data-cat]');
+      if (!btn) return;
+      state.category = btn.dataset.cat;
+      renderFilters(); renderProducts();
+    });
+    document.getElementById('searchInput').addEventListener('input', e => { state.q = e.target.value.trim(); renderProducts(); });
+    document.getElementById('sortSelect').addEventListener('change', e => { state.sort = e.target.value; renderProducts(); });
+    document.getElementById('resetFilters').addEventListener('click', () => {
+      Object.assign(state, { category: 'All', q: '', sort: 'featured' });
+      document.getElementById('searchInput').value = '';
+      document.getElementById('sortSelect').value = 'featured';
+      renderFilters(); renderProducts();
+    });
+    document.querySelectorAll('[data-filter-link]').forEach(b => b.addEventListener('click', () => {
+      state.category = b.dataset.filterLink;
+      renderFilters(); renderProducts();
+      document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+    }));
+
+    // add to cart / open details
+    grid.addEventListener('click', e => {
+      const add = e.target.closest('[data-add]');
+      const view = e.target.closest('[data-view]');
+      if (add) TN.addToCart(Number(add.dataset.add));
+      else if (view) { e.preventDefault(); openProduct(Number(view.dataset.view)); }
+    });
+
+    // ---------- product modal with reviews ----------
+    const modal = new bootstrap.Modal('#productModal');
+    let current = null;
+
+    function renderModalReviews(id) {
+      const reviews = TN.reviewsFor(id);
+      document.getElementById('pmRating').innerHTML =
+        `${TN.stars(TN.avgRating(id))} <span class="small text-body-secondary">${TN.avgRating(id).toFixed(1)} · ${reviews.length} review${reviews.length === 1 ? '' : 's'}</span>`;
+      document.getElementById('pmReviews').innerHTML = reviews.length ? reviews.map(r => `
+        <div class="border-bottom py-2">
+          <div class="d-flex justify-content-between"><b>${TN.esc(r.name)}</b><small class="text-body-secondary">${TN.esc(r.date)}</small></div>
+          <div class="small">${TN.stars(r.rating)}</div>
+          <p class="mb-0 small">${TN.esc(r.text)}</p>
+        </div>`).join('') : '<p class="text-body-secondary small">No reviews yet. Be the first!</p>';
+    }
+
+    function openProduct(id) {
+      const p = TN.product(id);
+      current = p;
+      document.getElementById('pmTitle').textContent = p.name;
+      document.getElementById('pmImage').innerHTML = TN.productImage(p);
+      document.getElementById('pmDesc').textContent = p.desc;
+      document.getElementById('pmPrice').textContent = TN.money(p.price);
+      document.getElementById('pmOld').textContent = p.oldPrice ? TN.money(p.oldPrice) : '';
+      document.getElementById('pmStock').innerHTML = p.stock <= 10
+        ? `<span class="text-danger"><i class="bi bi-exclamation-circle"></i> Only ${p.stock} left in stock</span>`
+        : `<span class="text-success"><i class="bi bi-check-circle"></i> In stock</span>`;
+      const qty = document.getElementById('pmQty');
+      qty.value = 1; qty.max = p.stock;
+      renderModalReviews(id);
+      const form = document.getElementById('reviewForm');
+      form.reset(); form.classList.remove('was-validated');
+      document.getElementById('ratingError').classList.add('d-none');
+      const user = TN.currentUser();
+      if (user) form.elements['name'].value = user.name;
+      modal.show();
+    }
+
+    const qtyInput = document.getElementById('pmQty');
+    const clampQty = v => Math.max(1, Math.min(Number(v) || 1, current.stock));
+    document.getElementById('pmMinus').addEventListener('click', () => qtyInput.value = clampQty(qtyInput.value - 1));
+    document.getElementById('pmPlus').addEventListener('click', () => qtyInput.value = clampQty(Number(qtyInput.value) + 1));
+    qtyInput.addEventListener('change', () => qtyInput.value = clampQty(qtyInput.value));
+    document.getElementById('pmAdd').addEventListener('click', () => { TN.addToCart(current.id, clampQty(qtyInput.value)); modal.hide(); });
+
+    document.getElementById('reviewForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const form = e.target;
+      const rating = form.querySelector('input[name="rating"]:checked');
+      document.getElementById('ratingError').classList.toggle('d-none', !!rating);
+      form.classList.add('was-validated');
+      if (!form.checkValidity() || !rating) return;
+      TN.addReview(current.id, { name: form.elements['name'].value.trim(), rating: Number(rating.value), text: form.text.value.trim() });
+      form.reset(); form.classList.remove('was-validated');
+      if (TN.currentUser()) form.elements['name'].value = TN.currentUser().name;
+      renderModalReviews(current.id);
+      renderProducts(); renderLatestReviews();
+      TN.toast('<i class="bi bi-star-fill"></i> Thanks! Your review was posted.', 'success');
+    });
+
+    // ---------- reviews section ----------
+    function renderLatestReviews() {
+      const all = PRODUCTS.flatMap(p => TN.reviewsFor(p.id).map(r => ({ ...r, product: p })))
+        .sort((a, b) => b.date.localeCompare(a.date));
+      const avg = all.reduce((s, r) => s + Number(r.rating), 0) / all.length;
+      document.getElementById('reviewSummary').innerHTML = `${TN.stars(avg)} <b>${avg.toFixed(1)}</b> out of 5 from ${all.length} reviews`;
+      document.getElementById('latestReviews').innerHTML = all.slice(0, 6).map(r => `
+        <div class="col">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body">
+              <div class="mb-2">${TN.stars(r.rating)}</div>
+              <p class="mb-3">“${TN.esc(r.text)}”</p>
+              <div class="d-flex align-items-center gap-2">
+                <span class="rounded-circle bg-dark text-white d-inline-flex align-items-center justify-content-center fw-bold" style="width:38px;height:38px">${TN.esc(r.name.charAt(0))}</span>
+                <div class="small"><b>${TN.esc(r.name)}</b><br><a href="#" class="text-body-secondary" data-view="${r.product.id}">${r.product.name}</a></div>
+              </div>
+            </div>
+          </div>
+        </div>`).join('');
+    }
+    document.getElementById('latestReviews').addEventListener('click', e => {
+      const v = e.target.closest('[data-view]');
+      if (v) { e.preventDefault(); openProduct(Number(v.dataset.view)); }
+    });
+
+    document.getElementById('newsletter').addEventListener('submit', e => {
+      e.preventDefault(); e.target.reset();
+      TN.toast('<i class="bi bi-envelope-check"></i> Subscribed! Watch your inbox for deals.', 'primary');
+    });
+
+    renderFilters();
+    renderProducts();
+    renderLatestReviews();
+    if (location.hash === '#shop' && state.q) document.getElementById('shop').scrollIntoView();
+  </script>
+</body>
+</html>

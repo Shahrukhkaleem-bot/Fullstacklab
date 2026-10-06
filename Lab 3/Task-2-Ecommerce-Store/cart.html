@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your cart · TechNest</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+  <div id="navbar"></div>
+
+  <main class="container py-5">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Cart</li>
+      </ol>
+    </nav>
+    <h1 class="fw-bold mb-4">Shopping cart</h1>
+
+    <!-- empty state -->
+    <div class="text-center py-5 d-none" id="emptyCart">
+      <i class="bi bi-cart-x display-1 text-body-secondary"></i>
+      <h2 class="h4 mt-3">Your cart is empty</h2>
+      <p class="text-body-secondary">Looks like you haven't added anything yet.</p>
+      <a href="index.html#shop" class="btn btn-primary btn-lg">Start shopping</a>
+    </div>
+
+    <div class="row g-4" id="cartContent">
+      <!-- ===== DISPLAY / EDIT CART ===== -->
+      <div class="col-lg-8">
+        <div class="card border-0 shadow-sm">
+          <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+            <span class="fw-semibold" id="itemCount"></span>
+            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#clearModal"><i class="bi bi-trash"></i> Clear cart</button>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-middle mb-0">
+              <thead class="table-light small text-uppercase">
+                <tr><th>Product</th><th>Price</th><th class="text-center">Quantity</th><th class="text-end">Total</th><th></th></tr>
+              </thead>
+              <tbody id="cartRows"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="alert alert-success mt-3 d-flex align-items-center gap-2 py-2" id="shipInfo"></div>
+        <a href="index.html#shop" class="btn btn-link px-0"><i class="bi bi-arrow-left"></i> Continue shopping</a>
+      </div>
+
+      <!-- ===== ORDER SUMMARY ===== -->
+      <div class="col-lg-4">
+        <div class="card border-0 shadow-sm sticky-lg-top" style="top: 80px">
+          <div class="card-body">
+            <h2 class="h5 fw-bold mb-3">Order summary</h2>
+
+            <form class="input-group mb-1" id="promoForm">
+              <input type="text" class="form-control text-uppercase" id="promoInput" placeholder="Promo code" aria-label="Promo code">
+              <button class="btn btn-outline-dark">Apply</button>
+            </form>
+            <div class="form-text mb-3" id="promoMsg">Try <b>FSWD10</b> for 10% off.</div>
+
+            <ul class="list-group list-group-flush mb-3">
+              <li class="list-group-item d-flex justify-content-between px-0"><span>Subtotal</span><span id="sumSubtotal"></span></li>
+              <li class="list-group-item d-flex justify-content-between px-0 text-success d-none" id="discountRow"><span>Discount (<span id="promoCode"></span>) <a href="#" class="small link-danger ms-1" id="removePromo">remove</a></span><span id="sumDiscount"></span></li>
+              <li class="list-group-item d-flex justify-content-between px-0"><span>Shipping <small class="text-body-secondary">(standard)</small></span><span id="sumShipping"></span></li>
+              <li class="list-group-item d-flex justify-content-between px-0 fw-bold fs-5"><span>Total</span><span id="sumTotal"></span></li>
+            </ul>
+
+            <a href="checkout.html" class="btn btn-warning btn-lg w-100 fw-semibold"><i class="bi bi-lock"></i> Proceed to checkout</a>
+            <p class="small text-body-secondary text-center mt-2 mb-0"><i class="bi bi-shield-check"></i> Cash on delivery available</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Clear-cart confirmation -->
+  <div class="modal fade" id="clearModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content">
+        <div class="modal-body text-center p-4">
+          <i class="bi bi-exclamation-triangle display-5 text-danger"></i>
+          <p class="mt-3 mb-0">Remove all items from your cart?</p>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button class="btn btn-danger" id="confirmClear" data-bs-dismiss="modal">Yes, clear it</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    TN.renderNavbar('cart');
+    TN.renderFooter();
+
+    const rows = document.getElementById('cartRows');
+
+    function render() {
+      const t = TN.totals('standard');
+      const empty = t.lines.length === 0;
+      document.getElementById('emptyCart').classList.toggle('d-none', !empty);
+      document.getElementById('cartContent').classList.toggle('d-none', empty);
+      if (empty) return;
+
+      const count = TN.cartCount();
+      document.getElementById('itemCount').textContent = `${count} item${count === 1 ? '' : 's'} in your cart`;
+
+      rows.innerHTML = t.lines.map(l => `
+        <tr>
+          <td>
+            <div class="d-flex align-items-center gap-3">
+              <div class="thumb">${TN.productImage(l.product, 'fs-2')}</div>
+              <div>
+                <div class="fw-semibold">${l.product.name}</div>
+                <small class="text-body-secondary">${l.product.category} · ${l.product.stock} in stock</small>
+              </div>
+            </div>
+          </td>
+          <td class="text-nowrap">${TN.money(l.product.price)}</td>
+          <td>
+            <div class="input-group input-group-sm qty-group mx-auto">
+              <button class="btn btn-outline-secondary" data-dec="${l.id}" ${l.qty <= 1 ? 'disabled' : ''} aria-label="Decrease">−</button>
+              <input type="number" class="form-control" value="${l.qty}" min="1" max="${l.product.stock}" data-qty="${l.id}" aria-label="Quantity">
+              <button class="btn btn-outline-secondary" data-inc="${l.id}" ${l.qty >= l.product.stock ? 'disabled' : ''} aria-label="Increase">+</button>
+            </div>
+          </td>
+          <td class="text-end fw-semibold text-nowrap">${TN.money(l.total)}</td>
+          <td class="text-end"><button class="btn btn-sm btn-link link-danger" data-remove="${l.id}" title="Remove"><i class="bi bi-x-lg"></i></button></td>
+        </tr>`).join('');
+
+      document.getElementById('sumSubtotal').textContent = TN.money(t.subtotal);
+      document.getElementById('discountRow').classList.toggle('d-none', !t.code);
+      document.getElementById('promoCode').textContent = t.code || '';
+      document.getElementById('sumDiscount').textContent = '− ' + TN.money(t.discount);
+      document.getElementById('sumShipping').innerHTML = t.shipping === 0 ? '<span class="text-success fw-semibold">Free</span>' : TN.money(t.shipping);
+      document.getElementById('sumTotal').textContent = TN.money(t.total);
+
+      const left = TN.FREE_SHIPPING_FROM - (t.subtotal - t.discount);
+      const info = document.getElementById('shipInfo');
+      info.className = `alert ${left > 0 ? 'alert-info' : 'alert-success'} mt-3 d-flex align-items-center gap-2 py-2`;
+      info.innerHTML = left > 0
+        ? `<i class="bi bi-truck"></i> Add <b>${TN.money(left)}</b> more for free standard delivery.`
+        : `<i class="bi bi-check-circle-fill"></i> You qualify for <b>free standard delivery</b>!`;
+    }
+
+    // edit cart: + / − / typed quantity / remove
+    rows.addEventListener('click', e => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+      const line = id => TN.cart().find(l => l.id === Number(id));
+      if (btn.dataset.inc) TN.setQty(btn.dataset.inc, line(btn.dataset.inc).qty + 1);
+      if (btn.dataset.dec) TN.setQty(btn.dataset.dec, line(btn.dataset.dec).qty - 1);
+      if (btn.dataset.remove) {
+        const name = TN.product(btn.dataset.remove).name;
+        TN.removeFromCart(btn.dataset.remove);
+        TN.toast(`Removed <b>${TN.esc(name)}</b> from your cart.`, 'secondary');
+      }
+      render();
+    });
+    rows.addEventListener('change', e => {
+      if (e.target.dataset.qty) { TN.setQty(e.target.dataset.qty, e.target.value); render(); }
+    });
+
+    document.getElementById('confirmClear').addEventListener('click', () => { TN.clearCart(); render(); });
+
+    // promo codes
+    document.getElementById('promoForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const input = document.getElementById('promoInput');
+      const msg = document.getElementById('promoMsg');
+      if (TN.applyPromo(input.value)) {
+        msg.innerHTML = '<span class="text-success"><i class="bi bi-check-circle"></i> Promo code applied!</span>';
+        input.value = '';
+        input.classList.remove('is-invalid');
+      } else {
+        msg.innerHTML = '<span class="text-danger">That code is not valid. Try FSWD10.</span>';
+        input.classList.add('is-invalid');
+      }
+      render();
+    });
+    document.getElementById('removePromo').addEventListener('click', e => { e.preventDefault(); TN.removePromo(); render(); });
+
+    render();
+  </script>
+</body>
+</html>
