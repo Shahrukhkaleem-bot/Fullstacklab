@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile | ConnecFriend</title>
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body class="bg-body-tertiary">
+  <div id="navbar"></div>
+
+  <div class="container py-4">
+    <div class="alert alert-warning d-none" id="notFound" role="alert"></div>
+
+    <div id="profileContent">
+      <!-- header: picture, name, actions -->
+      <div class="card border-0 shadow-sm rounded-3 mb-4">
+        <div class="card-body p-4">
+          <div class="row align-items-center g-4">
+            <div class="col-md-auto text-center">
+              <div id="photo"></div>
+              <div id="photoActions" class="mt-2"></div>
+            </div>
+            <div class="col-md text-center text-md-start">
+              <h1 class="h3 mb-0" id="name"></h1>
+              <div class="text-muted" id="username"></div>
+              <p class="mt-2 mb-2" id="bio"></p>
+              <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-md-start small text-muted" id="quickFacts"></div>
+            </div>
+            <div class="col-md-auto">
+              <div id="relationActions" class="d-grid gap-2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <!-- personal information -->
+        <aside class="col-lg-4">
+          <div class="card border-0 shadow-sm rounded-3">
+            <div class="card-body pb-0"><h2 class="h6 mb-0">About</h2></div>
+            <table class="table table-borderless table-sm small mb-2 mt-2">
+              <tbody id="details"></tbody>
+            </table>
+          </div>
+        </aside>
+
+        <!-- friends and posts -->
+        <main class="col-lg-8">
+          <div class="card border-0 shadow-sm rounded-3">
+            <div class="card-header bg-white border-bottom">
+              <ul class="nav nav-underline" role="tablist">
+                <li class="nav-item" role="presentation"><button class="nav-link link-success active" data-bs-toggle="tab" data-bs-target="#tabFriends" type="button" role="tab">Friends <span class="badge text-bg-light" id="friendsCount">0</span></button></li>
+                <li class="nav-item" role="presentation"><button class="nav-link link-success" data-bs-toggle="tab" data-bs-target="#tabNews" type="button" role="tab">Posts <span class="badge text-bg-light" id="newsCount">0</span></button></li>
+              </ul>
+            </div>
+            <div class="card-body tab-content">
+              <section class="tab-pane fade show active" id="tabFriends" role="tabpanel">
+                <input type="search" class="form-control form-control-sm bg-body-tertiary border-0 mb-3" id="friendSearch" placeholder="Search friends" aria-label="Search friends">
+                <div class="row row-cols-1 row-cols-md-2 g-2" id="friendsGrid"></div>
+              </section>
+              <section class="tab-pane fade" id="tabNews" role="tabpanel">
+                <div id="newsList"></div>
+              </section>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <!-- edit profile -->
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <form class="modal-content border-0 rounded-3" id="editForm" novalidate>
+        <div class="modal-header">
+          <h5 class="modal-title" id="editTitle">Edit profile</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-danger py-2 small d-none" id="editError"></div>
+          <div class="row g-3">
+            <div class="col-12"><label class="form-label small" for="eName">Full name</label><input class="form-control" id="eName" required minlength="3" maxlength="40"></div>
+            <div class="col-12"><label class="form-label small" for="eBio">Bio</label><textarea class="form-control" id="eBio" rows="2" maxlength="160"></textarea></div>
+            <div class="col-md-6"><label class="form-label small" for="eCity">City</label><input class="form-control" id="eCity" maxlength="40"></div>
+            <div class="col-md-6"><label class="form-label small" for="eUni">University</label><input class="form-control" id="eUni" maxlength="60"></div>
+            <div class="col-md-6"><label class="form-label small" for="eEmail">Email</label><input type="email" class="form-control" id="eEmail"></div>
+            <div class="col-md-6"><label class="form-label small" for="ePhone">Phone</label><input class="form-control" id="ePhone" placeholder="0312-3456789"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+          <button class="btn btn-success">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/posts.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+</html>

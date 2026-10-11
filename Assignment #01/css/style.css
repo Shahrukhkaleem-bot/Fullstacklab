@@ -1,0 +1,13 @@
+/* ConnecFriend custom CSS.
+   Everything else uses Bootstrap 5.3 classes. These two things have no Bootstrap utility. */
+
+/* site font (Inter, loaded from Google Fonts in each page) */
+:root {
+  --bs-body-font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* chat window and conversation list scroll inside a fixed-height panel */
+.chat-scroll {
+  height: 60vh;
+  min-height: 320px;
+}

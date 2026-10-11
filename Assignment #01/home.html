@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home | ConnecFriend</title>
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body class="bg-body-tertiary">
+  <div id="navbar"></div>
+
+  <div class="container py-4">
+    <div class="row g-4">
+
+      <!-- left: my summary -->
+      <aside class="col-lg-3 d-none d-lg-block">
+        <div class="card border-0 shadow-sm rounded-3 text-center" id="meCard"></div>
+      </aside>
+
+      <!-- middle: post box + news feed -->
+      <main class="col-lg-6">
+        <div class="card border-0 shadow-sm rounded-3 mb-3">
+          <div class="card-body">
+            <form id="composer" novalidate>
+              <div class="d-flex gap-2">
+                <div id="composerAvatar"></div>
+                <textarea class="form-control border-0 bg-body-tertiary rounded-3" id="newsText" rows="2" maxlength="500" placeholder="Share some news with your friends" aria-label="News"></textarea>
+              </div>
+              <div class="d-flex justify-content-between small mt-1">
+                <span class="text-danger d-none" id="composerError"></span>
+                <span class="text-muted ms-auto" id="charCount">0 / 500</span>
+              </div>
+              <hr class="my-2">
+              <div class="d-flex flex-wrap align-items-start gap-2">
+                <div id="composerAudience" class="flex-grow-1"></div>
+                <button class="btn btn-success btn-sm px-4" type="submit">Post</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h2 class="h6 text-muted text-uppercase mb-0">News feed</h2>
+          <select class="form-select form-select-sm w-auto border-0 shadow-sm" id="feedFilter" aria-label="Filter news"></select>
+        </div>
+
+        <div id="feed"></div>
+      </main>
+
+      <!-- right: friends, most recent login first -->
+      <aside class="col-lg-3">
+        <div class="card border-0 shadow-sm rounded-3">
+          <div class="card-body pb-0">
+            <div class="d-flex justify-content-between align-items-baseline">
+              <h2 class="h6 mb-0">Friends <span class="text-muted fw-normal" id="friendCount">0</span></h2>
+              <small class="text-muted">latest login first</small>
+            </div>
+          </div>
+          <ul class="list-group list-group-flush" id="friendList"></ul>
+          <div class="card-body pt-2 small text-muted border-top">
+            <i class="bi bi-emoji-dizzy-fill text-danger"></i> Stupid ·
+            <i class="bi bi-emoji-sunglasses-fill text-info"></i> Cool ·
+            <i class="bi bi-shield-fill-check text-success"></i> Trustworthy
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- share someone's post -->
+  <div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <form class="modal-content border-0 rounded-3" id="shareForm" novalidate>
+        <div class="modal-header">
+          <h5 class="modal-title" id="shareTitle">Share post</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <textarea class="form-control mb-3" id="shareText" rows="2" maxlength="500" placeholder="Say something about this (optional)" aria-label="Comment"></textarea>
+          <div id="sharePreview" class="mb-3"></div>
+          <div id="shareAudience"></div>
+          <div class="alert alert-danger py-2 mt-3 mb-0 small d-none" id="shareError"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-success">Share</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/audience.js"></script>
+  <script src="js/posts.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>
